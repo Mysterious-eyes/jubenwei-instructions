@@ -1,0 +1,2 @@
+# Python 3.10+ standard library only. Reproduction checks used Python 3.12.14.
+# Model-service clients have separate requirements under code/inference/.

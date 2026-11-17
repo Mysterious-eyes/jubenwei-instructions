@@ -1,0 +1,71 @@
+{
+  "reference": "evaluation/reference.json",
+  "records_per_condition": 1200,
+  "conditions": [
+    {
+      "id": "qwen25_unadapted",
+      "model": "Qwen2.5-7B-Instruct",
+      "task_sft": false,
+      "predictions": "evaluation/predictions/qwen25_unadapted.txt",
+      "scores": "evaluation/scores/qwen25_unadapted.txt",
+      "records": 1200
+    },
+    {
+      "id": "qwen25_sft",
+      "model": "Qwen2.5-7B-Instruct",
+      "task_sft": true,
+      "predictions": "evaluation/predictions/qwen25_sft.txt",
+      "scores": "evaluation/scores/qwen25_sft.txt",
+      "records": 1200,
+      "training_config": "configs/qwen25_lora_sft.yaml"
+    },
+    {
+      "id": "qwen3_unadapted_thinking_off",
+      "model": "Qwen3-4B",
+      "task_sft": false,
+      "predictions": "evaluation/predictions/qwen3_unadapted_thinking_off.txt",
+      "scores": "evaluation/scores/qwen3_unadapted_thinking_off.txt",
+      "records": 1200,
+      "thinking_enabled": false,
+      "checkpoint_group": "qwen3_unadapted_shared"
+    },
+    {
+      "id": "qwen3_unadapted_thinking_on",
+      "model": "Qwen3-4B",
+      "task_sft": false,
+      "predictions": "evaluation/predictions/qwen3_unadapted_thinking_on.txt",
+      "scores": "evaluation/scores/qwen3_unadapted_thinking_on.txt",
+      "records": 1200,
+      "thinking_enabled": true,
+      "checkpoint_group": "qwen3_unadapted_shared"
+    },
+    {
+      "id": "qwen3_sft_thinking_off",
+      "model": "Qwen3-4B",
+      "task_sft": true,
+      "predictions": "evaluation/predictions/qwen3_sft_thinking_off.txt",
+      "scores": "evaluation/scores/qwen3_sft_thinking_off.txt",
+      "records": 1200,
+      "thinking_enabled": false,
+      "training_config": "configs/qwen3_lora_sft.yaml",
+      "checkpoint_group": "qwen3_sft_shared"
+    },
+    {
+      "id": "qwen3_sft_thinking_on",
+      "model": "Qwen3-4B",
+      "task_sft": true,
+      "predictions": "evaluation/predictions/qwen3_sft_thinking_on.txt",
+      "scores": "evaluation/scores/qwen3_sft_thinking_on.txt",
+      "records": 1200,
+      "thinking_enabled": true,
+      "training_config": "configs/qwen3_lora_sft.yaml",
+      "checkpoint_group": "qwen3_sft_shared"
+    }
+  ],
+  "author_confirmed_training_instance": {
+    "records": 15923,
+    "hardware": "NVIDIA GeForce RTX 5090, 32 GB"
+  },
+  "scope": "Archived conditions supplied for the manuscript. Offline scoring was verified without model calls. Optional model-service clients are provided separately under code/inference/ and were tested with offline mocks, not by rerunning inference.",
+  "training_instance_association": "The experimenter confirmed in the current update that the supplied adapted-model results used the15,923-record training instance. This association is not inferred from local file timestamps."
+}

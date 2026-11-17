@@ -1,0 +1,2 @@
+# Data reading, verification, normalization and offline evaluation use Python 3.10+ standard library only.
+# Training frameworks and model-serving dependencies are not installed by these scripts.

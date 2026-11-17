@@ -1,0 +1,167 @@
+[
+  {
+    "task_id": "M0",
+    "file": "sft_tasks/overall_1.json",
+    "name_zh": "整句标注",
+    "role": "main",
+    "records": 5016,
+    "granularity": "sentence",
+    "explanation_markup_records": 5016,
+    "static_dictionary": false,
+    "training_instance_records": 3816
+  },
+  {
+    "task_id": "A1",
+    "file": "sft_tasks/learn_tag_1.json",
+    "name_zh": "标签到含义",
+    "role": "auxiliary",
+    "records": 54,
+    "granularity": "symbol",
+    "explanation_markup_records": 0,
+    "static_dictionary": true,
+    "training_instance_records": 54
+  },
+  {
+    "task_id": "A2",
+    "file": "sft_tasks/learn_tag_2.json",
+    "name_zh": "含义到标签",
+    "role": "auxiliary",
+    "records": 53,
+    "granularity": "meaning",
+    "explanation_markup_records": 0,
+    "static_dictionary": true,
+    "training_instance_records": 53
+  },
+  {
+    "task_id": "A3",
+    "file": "sft_tasks/learn_tag_3.json",
+    "name_zh": "给定XML的词性解读",
+    "role": "auxiliary",
+    "records": 91512,
+    "granularity": "lexical node",
+    "explanation_markup_records": 91512,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A4",
+    "file": "sft_tasks/learn_tag_4.json",
+    "name_zh": "给定XML的句法成分解读",
+    "role": "auxiliary",
+    "records": 64459,
+    "granularity": "syntactic component",
+    "explanation_markup_records": 64459,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A5",
+    "file": "sft_tasks/learn_separate_1.json",
+    "name_zh": "分词",
+    "role": "auxiliary",
+    "records": 5016,
+    "granularity": "sentence",
+    "explanation_markup_records": 0,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A6",
+    "file": "sft_tasks/learn_pos_2.json",
+    "name_zh": "语境词性及标签",
+    "role": "auxiliary",
+    "records": 91512,
+    "granularity": "lexical node",
+    "explanation_markup_records": 0,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A7",
+    "file": "sft_tasks/dongtaici_1.json",
+    "name_zh": "动态词识别",
+    "role": "auxiliary",
+    "records": 10864,
+    "granularity": "clause",
+    "explanation_markup_records": 10864,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A8",
+    "file": "sft_tasks/dongtaici_2.json",
+    "name_zh": "动态词内部结构",
+    "role": "auxiliary",
+    "records": 10941,
+    "granularity": "dynamic-word node",
+    "explanation_markup_records": 10941,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A9",
+    "file": "sft_tasks/xiaoju_1.json",
+    "name_zh": "小句切分",
+    "role": "auxiliary",
+    "records": 5016,
+    "granularity": "sentence",
+    "explanation_markup_records": 5016,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A10",
+    "file": "sft_tasks/single_core_1.json",
+    "name_zh": "单核结构提取",
+    "role": "auxiliary",
+    "records": 10864,
+    "granularity": "clause",
+    "explanation_markup_records": 0,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A11",
+    "file": "sft_tasks/learn_grammar_2.json",
+    "name_zh": "语境句法成分及标签",
+    "role": "auxiliary",
+    "records": 64459,
+    "granularity": "syntactic component",
+    "explanation_markup_records": 0,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A12",
+    "file": "sft_tasks/weiciyu_1.json",
+    "name_zh": "谓核辖域",
+    "role": "auxiliary",
+    "records": 17240,
+    "granularity": "predicate",
+    "explanation_markup_records": 17240,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A13",
+    "file": "sft_tasks/fuzaju_1.json",
+    "name_zh": "复杂句式类型",
+    "role": "auxiliary",
+    "records": 10864,
+    "granularity": "clause",
+    "explanation_markup_records": 0,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  },
+  {
+    "task_id": "A14",
+    "file": "sft_tasks/XML_rule_1.json",
+    "name_zh": "XML检查与修复",
+    "role": "auxiliary",
+    "records": 5001,
+    "granularity": "sentence or controlled corruption",
+    "explanation_markup_records": 5001,
+    "static_dictionary": false,
+    "training_instance_records": 1000
+  }
+]
