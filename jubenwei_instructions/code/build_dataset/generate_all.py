@@ -1,4 +1,4 @@
-"""Generate and validate the complete15-task collection, not a training selection route."""
+"""Generate and validate the complete collection of 15 instruction tasks."""
 import argparse,json
 from build_common import generate_tasks,new_output,resolve
 from selection_rules import load_pairs

@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this code, cite this repository and the source treebank. Manuscript publication metadata will be added after publication."
+message: "Please cite this software using the metadata below."
 type: software
 title: "Jubenwei Instructions code for Chinese grammar teaching"
 version: 1.0.0

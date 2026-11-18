@@ -1,52 +1,66 @@
-# Inference clients retained with the study
+# Model inference clients
 
-This directory makes the two client implementations saved in the local project portable. `qwen25_client.py` is the Qwen2.5-oriented client; `qwen3_client.py` uses the shared system prompt and exposes the Qwen3 thinking switch. Both accept `--model` to select a model served by the user.
+`qwen25_client.py` sends sentence-annotation requests to a Qwen2.5 service. `qwen3_client.py` adds the shared system prompt and supports Qwen3's thinking switch. Both use an OpenAI-compatible endpoint and accept `--model` to select the served model.
 
-These files are not presented as a complete execution log for all six historical conditions. The six archived prediction files and the offline evaluator are sufficient to recalculate the reported metrics without running a model. This package does not infer undocumented historical settings from a client default.
+Run commands from `jubenwei_instructions/`, the resource directory inside the repository. The model checkpoint and server are supplied by the user; training configurations are in `configs/`.
 
-## Files and dependencies
+## Inputs and dependencies
 
-- `sentences.txt` is supplied separately with the study data. It is not included in this code repository; provide the sentence file explicitly with `--input`.
-- `qwen3_shared_system_prompt.txt`: the unchanged shared prompt supplied with the Qwen3 client.
-- `qwen25_client.py`, `qwen3_client.py`: request construction, response separation and four-field TXT output.
-- `test_clients_offline.py`: checks using a simulated SDK; it never calls a model service.
+Install the client dependencies:
 
-Install `requirements.txt` in the environment used for the client. The existing `../sps_converter/` converts final XML to the linear representation used by offline scoring. No database helper or database credentials are included.
+```sh
+python -m pip install -r code/inference/requirements.txt
+```
 
-Training remains a separate cloud operation using the configurations in `../../configs/`. To run inference, serve your own original or adapted checkpoint through an OpenAI-compatible endpoint. The clients neither train nor download models.
+Provide a UTF-8 text file with one sentence per line through `--input`. The instruction-data ZIP contains task examples rather than the separate 1,200-sentence evaluation input; the fixed reference can be recovered using the [construction workflow](../build_dataset/README.md). The Qwen3 client reads `qwen3_shared_system_prompt.txt` from this directory by default. The `../sps_converter/` module converts final XML into the linear representation used for scoring.
 
-## Credentials and execution
+Set `VLLM_BASE_URL` to the endpoint and `VLLM_API_KEY` to its key. For a service without authentication, set an explicit placeholder key. `--base-url` can override the endpoint; the API key is read from the environment.
 
-Set `VLLM_BASE_URL` to your service endpoint and `VLLM_API_KEY` to its key in the environment. There is no built-in endpoint or key. If your service is explicitly unauthenticated, set a placeholder key yourself. A `--base-url` option can override the endpoint; keys are read only from the environment.
+## Run
 
-From the release root:
-
-```text
-python -B code/inference/qwen25_client.py --help
-python -B code/inference/qwen3_client.py --help
+```sh
 python -B code/inference/qwen25_client.py --input /path/to/sentences.txt --model YOUR_SERVED_MODEL
 python -B code/inference/qwen3_client.py --input /path/to/sentences.txt --model YOUR_SERVED_MODEL --thinking off
 python -B code/inference/qwen3_client.py --input /path/to/sentences.txt --model YOUR_SERVED_MODEL --thinking on
 ```
 
-Choose a distinct `--output` for each condition when reusing a client. Defaults write under `reproduced/inference/`; they do not overwrite the archived predictions. Existing output is refused unless `--overwrite` is explicit. `--limit` supports a short trial. The numerical request defaults are retained from the local source implementations, not relabelled as the confirmed settings of every archived experiment.
+Choose a distinct `--output` for each condition. The default location is `reproduced/inference/`. Existing files require an explicit `--overwrite`; `--limit` selects a small input batch. Run either client with `--help` to inspect its settings. For controlled comparisons, set the prompt, model, and request options for each condition explicitly.
 
-The Qwen2.5 client sends the sentence annotation request as a user message. The Qwen3 client adds the supplied system prompt and controls `enable_thinking` through the request. The prompt, response-splitting logic, numerical request defaults and per-record output behavior are retained. No reference XML is sent.
+The Qwen2.5 client sends a user message containing the annotation request. Qwen3 sends the shared system prompt plus the user message and passes `enable_thinking` in the request.
 
-Both clients write `Instruction`, `Reasoning`, `Output` and `Expression`. Qwen3 additionally writes raw response JSONL and run metadata beside its TXT. Analysis fields are separated from the final answer, complete Markdown XML fences are removed, and XML tags are not repaired. XML failures remain in the output. API failure stops the run and retains completed records.
+## Outputs
 
-To rescore a newly generated complete TXT:
+Both clients save four fields per record:
 
-```text
+| Field | Content |
+|---|---|
+| `Instruction` | Sentence-annotation request |
+| `Reasoning` | Analysis text returned by the model, when present |
+| `Output` | Final response used for XML evaluation |
+| `Expression` | Linear expression converted from the final XML |
+
+The Qwen3 client also saves `.raw.jsonl` responses and `.meta.json` run metadata next to the TXT output. Response processing separates analysis from the final answer and removes a complete enclosing XML code fence. It preserves malformed XML as returned. If an API request fails, the client stops and retains completed records.
+
+## Evaluate saved predictions
+
+With the matching reference file installed:
+
+```sh
 python -B code/evaluate.py --prediction reproduced/inference/YOUR_RESULT.txt
 ```
 
-To verify the six archived conditions directly, run `python -B code/evaluate.py --all`.
+For a reconstructed reference, add `--reference reproduced/evaluation_reference/reference.json`. To rescore the study's six saved conditions, install the associated prediction files and run:
+
+```sh
+python -B code/evaluate.py --all
+```
+
+The evaluator derives the scores from saved final XML, independently of a model service. The [main README](../../../README.md) describes the data files required for these commands.
 
 ## Offline checks
 
-```text
+```sh
 python -B -m unittest discover -s code/inference -p test_clients_offline.py
 ```
 
-The tests substitute SDK responses and use temporary local files. They check prompt/thinking propagation, reasoning separation, malformed XML preservation, interrupted batches, output protection and conversion through the public module. They do not assert model quality or the provenance of historical runs.
+These checks use simulated SDK responses and temporary files to verify prompt and thinking-mode options, response separation, malformed XML handling, interrupted batches, and output protection.
