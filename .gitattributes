@@ -1,0 +1,2 @@
+jubenwei_instructions/evaluation/*.csv text eol=lf
+jubenwei_instructions/evaluation/scores/*.txt -text whitespace=cr-at-eol

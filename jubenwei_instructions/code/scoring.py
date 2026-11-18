@@ -47,11 +47,28 @@ def evaluate(loaded_data, predictions):
     """校验对应关系，统一生成表达式；只返回结果，不写文件。"""
     if not loaded_data or len(loaded_data) != len(predictions):
         raise ValueError(f'参考/预测数量必须相同且非空：{len(loaded_data)} / {len(predictions)}')
+    for i, (gold, prediction) in enumerate(zip(loaded_data, predictions), 1):
+        if not isinstance(gold, list) or len(gold) != 2 or not all(isinstance(v, str) for v in gold):
+            raise ValueError(f'第 {i} 条参考数据必须为 [原句, XML]')
+        if not isinstance(prediction, dict) or not all(isinstance(prediction.get(k), str) for k in FIELDS):
+            raise ValueError(f'第 {i} 条预测必须包含四个字符串字段')
+        if prediction['Instruction'] != f'给出句子“{gold[0]}”的句本位标注结果。':
+            raise ValueError(f'第 {i} 条预测指令与参考原句不对应')
+    return evaluate_outputs(loaded_data, [p['Output'] for p in predictions],
+                            stored_expressions=[p['Expression'] for p in predictions])
+
+
+def evaluate_outputs(loaded_data, outputs, *, stored_expressions=None):
+    """Score final answer strings in the order of the reference records."""
+    if not loaded_data or len(loaded_data) != len(outputs):
+        raise ValueError('Reference records and final answers must have the same nonzero length.')
+    if stored_expressions is not None and len(stored_expressions) != len(outputs):
+        raise ValueError('Expected one stored expression per answer.')
     tokens, gold_xmls, pred_xmls = ([], [], [])
     gold_structs, pred_structs = ([], [])
     text_mismatches, conversion_errors = ([], [])
     converter = LinearExpr()
-    stored_expression_mismatches = 0
+    stored_expression_mismatches = 0 if stored_expressions is not None else None
 
     def convert(root, side, row_number):
         try:
@@ -62,14 +79,12 @@ def evaluate(loaded_data, predictions):
         except Exception as exc:
             conversion_errors.append((row_number, side, type(exc).__name__, str(exc)))
             return None
-    for i, (gold, pred) in enumerate(zip(loaded_data, predictions), 1):
+    for i, (gold, output) in enumerate(zip(loaded_data, outputs), 1):
         if not isinstance(gold, list) or len(gold) != 2 or (not all((isinstance(v, str) for v in gold))):
             raise ValueError(f'第 {i} 条参考数据必须为 [原句, XML]')
-        if not isinstance(pred, dict) or not all((isinstance(pred.get(k), str) for k in FIELDS)):
-            raise ValueError(f'第 {i} 条预测必须包含四个字符串字段')
+        if not isinstance(output, str):
+            raise ValueError(f'Expected a final answer string at record {i}.')
         sentence, gold_xml = gold
-        if pred['Instruction'] != f'给出句子“{sentence}”的句本位标注结果。':
-            raise ValueError(f'第 {i} 条预测指令与参考原句不对应')
         try:
             gold_root = ET.fromstring(gold_xml)
         except ET.ParseError as exc:
@@ -78,10 +93,10 @@ def evaluate(loaded_data, predictions):
             raise ValueError(f'第 {i} 条参考 XML 文本与原句不一致')
         tokens.append(sentence)
         gold_xmls.append(gold_xml)
-        pred_xmls.append(pred['Output'])
+        pred_xmls.append(output)
         gold_structs.append(convert(gold_root, '参考', i))
         try:
-            pred_root = ET.fromstring(pred['Output'])
+            pred_root = ET.fromstring(output)
         except ET.ParseError:
             pred_structs.append(None)
             continue
@@ -90,7 +105,7 @@ def evaluate(loaded_data, predictions):
             text_mismatches.append((i, sentence, pred_text))
         expression = convert(pred_root, '预测', i)
         pred_structs.append(expression)
-        if expression is not None and expression != pred['Expression'].strip():
+        if stored_expressions is not None and expression is not None and expression != stored_expressions[i-1].strip():
             stored_expression_mismatches += 1
     scores = compute_metric(tokens, gold_xmls, pred_xmls, gold_structs, pred_structs)
     separated, pos, dynamic, grammar, right, invalid, invalid_sentences = scores

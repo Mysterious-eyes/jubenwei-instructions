@@ -1,0 +1,30 @@
+{
+  "canvas": {
+    "width": 1600,
+    "height": 1500
+  },
+  "palette": {
+    "ink": "#17324D",
+    "muted": "#536575",
+    "teal": "#087F8C",
+    "blue": "#2F6B9A",
+    "orange": "#C57A32",
+    "light_teal": "#EDF7F7",
+    "light_blue": "#EEF4F9",
+    "light_orange": "#FBF3E9",
+    "grid": "#DCE4EA",
+    "gray": "#B7C2CB",
+    "white": "#FFFFFF"
+  },
+  "fonts": {
+    "en": "Arial",
+    "zh": "Microsoft YaHei"
+  },
+  "font_px": {
+    "panel": 42,
+    "heading": 36,
+    "body": 34,
+    "axis": 32,
+    "note": 30
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "archive": "model-outputs-v1.0.0.zip",
+  "release_url": "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0",
+  "bytes": 598758,
+  "sha256": "10985ea3dbd68f0d366bdbc8de58f47868a4e9e22f3e187f985e725e321ede2a",
+  "reference_sha256": "9a671859503bb5b287513da4d0d1009b902d61b4054bdbe3ed7ea28135614abc",
+  "conditions": [
+    {
+      "condition": "qwen25_unadapted",
+      "file": "outputs/qwen25_unadapted.jsonl",
+      "rows": 1200,
+      "sha256": "7b04d3b63dbb07fe542e4ad7506ea156fb22101d53e835301df7f55952c5b609"
+    },
+    {
+      "condition": "qwen25_sft",
+      "file": "outputs/qwen25_sft.jsonl",
+      "rows": 1200,
+      "sha256": "9cdd5318b5c501424c9a7dc6781055c94e197cad79bae4ff44dee67ed5ced6a6"
+    },
+    {
+      "condition": "qwen3_unadapted_thinking_off",
+      "file": "outputs/qwen3_unadapted_thinking_off.jsonl",
+      "rows": 1200,
+      "sha256": "131502adae147dbac16b1b9705320b255913240fec62046a24cb69a15817f2a0"
+    },
+    {
+      "condition": "qwen3_unadapted_thinking_on",
+      "file": "outputs/qwen3_unadapted_thinking_on.jsonl",
+      "rows": 1200,
+      "sha256": "a1978788b2fa9b48fb55e2e87e8810b27b357bfb8d539d66f4bfcc1fb916dd15"
+    },
+    {
+      "condition": "qwen3_sft_thinking_off",
+      "file": "outputs/qwen3_sft_thinking_off.jsonl",
+      "rows": 1200,
+      "sha256": "6f4f0b31634e48ca694163f8be8851531c9ebe6b9f68d8468c856ec757b0e8aa"
+    },
+    {
+      "condition": "qwen3_sft_thinking_on",
+      "file": "outputs/qwen3_sft_thinking_on.jsonl",
+      "rows": 1200,
+      "sha256": "5adb2055827070db6818762376963bbe1d9ca5df7d3175e17713fed0c2e84221"
+    }
+  ]
+}

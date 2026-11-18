@@ -1,0 +1,4 @@
+output/
+.validation/
+__pycache__/
+*.py[cod]

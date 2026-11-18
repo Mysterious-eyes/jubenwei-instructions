@@ -1,8 +1,13 @@
-"""Paper metric extraction and alignment, with standard BIO entity micro-F1."""
+"""Paper metric extraction and alignment, with standard BIO entity micro-F1.
+
+The four component metrics return their original F1 score by default.
+With return_counts=True they return pooled (TP, FP, FN) from the same extraction
+and alignment, for case-level diagnostics or independent metric aggregation.
+"""
 from collections import Counter
 from typing import List
 import xml.etree.ElementTree as ET
-from bio_f1 import f1_score
+from bio_f1 import entity_counts, f1_score
 def tqdm(iterable, **kwargs):
     return iterable
 
@@ -67,7 +72,8 @@ def label_sequence(labeled_tokens, labeled_reference, task, scheme='BIO'):
                 index += len(meta_refer[0])
         return labeled_results
 
-def compute_separated_word_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str]) -> float:
+def compute_separated_word_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str],
+                              *, return_counts: bool = False) -> float | tuple[int, int, int]:
     """
         计算分词的F1分数。
 
@@ -77,7 +83,7 @@ def compute_separated_word_F1(token_list: List[str], gold_xml_list: List[str], p
            pred_xml_list：预测xml的列表
 
         Returns:
-            F1分数（0-1）
+            F1分数（0-1）；return_counts=True时返回(TP, FP, FN)。
     """
 
     def traverse_xml_in_order(element):
@@ -93,7 +99,7 @@ def compute_separated_word_F1(token_list: List[str], gold_xml_list: List[str], p
             result.extend(traverse_xml_in_order(child))
         return result
     if len(token_list) != len(gold_xml_list) or len(gold_xml_list) != len(pred_xml_list) or len(token_list) == 0:
-        return 0
+        return (0, 0, 0) if return_counts else 0
     gold_sequences, pred_sequences = ([], [])
     for meta_token, meta_gold_xml, meta_pred_xml in tqdm(zip(token_list, gold_xml_list, pred_xml_list), desc='Processing separated word', total=len(token_list)):
         gold_root = ET.fromstring(meta_gold_xml)
@@ -108,10 +114,13 @@ def compute_separated_word_F1(token_list: List[str], gold_xml_list: List[str], p
         meta_pred_sequence = label_sequence(meta_token_list, meta_separated_pred_list, 'separated_word')
         gold_sequences.append(meta_gold_sequence)
         pred_sequences.append(meta_pred_sequence)
+    if return_counts:
+        return entity_counts(gold_sequences, pred_sequences)
     f1 = f1_score(gold_sequences, pred_sequences, zero_division=0) if gold_sequences else 0.0
     return f1
 
-def compute_pos_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str]) -> float:
+def compute_pos_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str],
+                   *, return_counts: bool = False) -> float | tuple[int, int, int]:
     """
         计算词性的F1分数。
 
@@ -121,7 +130,7 @@ def compute_pos_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_lis
            pred_xml_list：预测xml的列表
 
         Returns:
-            F1分数（0-1）
+            F1分数（0-1）；return_counts=True时返回(TP, FP, FN)。
     """
 
     def traverse_tree(element):
@@ -137,7 +146,7 @@ def compute_pos_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_lis
             pos_results.extend(traverse_tree(child))
         return pos_results
     if len(token_list) != len(gold_xml_list) or len(gold_xml_list) != len(pred_xml_list) or len(token_list) == 0:
-        return 0
+        return (0, 0, 0) if return_counts else 0
     gold_sequences, pred_sequences = ([], [])
     for meta_token, meta_gold_xml, meta_pred_xml in tqdm(zip(token_list, gold_xml_list, pred_xml_list), desc='Processing POS', total=len(token_list)):
         gold_root = ET.fromstring(meta_gold_xml)
@@ -152,10 +161,13 @@ def compute_pos_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_lis
         meta_pred_sequence = label_sequence(meta_token_list, meta_pos_pred_list, 'pos')
         gold_sequences.append(meta_gold_sequence)
         pred_sequences.append(meta_pred_sequence)
+    if return_counts:
+        return entity_counts(gold_sequences, pred_sequences)
     f1 = f1_score(gold_sequences, pred_sequences, zero_division=0) if gold_sequences else 0.0
     return f1
 
-def compute_dynamic_word_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str]) -> float:
+def compute_dynamic_word_F1(token_list: List[str], gold_xml_list: List[str], pred_xml_list: List[str],
+                            *, return_counts: bool = False) -> float | tuple[int, int, int]:
     """
         计算动态词的F1分数。
 
@@ -165,7 +177,7 @@ def compute_dynamic_word_F1(token_list: List[str], gold_xml_list: List[str], pre
            pred_xml_list：预测xml的列表
 
         Returns:
-            F1分数（0-1）
+            F1分数（0-1）；return_counts=True时返回(TP, FP, FN)。
     """
 
     def get_mod_tag(root):
@@ -186,7 +198,7 @@ def compute_dynamic_word_F1(token_list: List[str], gold_xml_list: List[str], pre
                 result.append((key, tag_name, mod_value))
         return result
     if len(token_list) != len(gold_xml_list) or len(gold_xml_list) != len(pred_xml_list) or len(token_list) == 0:
-        return 0
+        return (0, 0, 0) if return_counts else 0
     gold_sequences, pred_sequences = ([], [])
     for meta_token, meta_gold_xml, meta_pred_xml in tqdm(zip(token_list, gold_xml_list, pred_xml_list), desc='Processing dynamic word', total=len(token_list)):
         gold_root = ET.fromstring(meta_gold_xml)
@@ -201,10 +213,13 @@ def compute_dynamic_word_F1(token_list: List[str], gold_xml_list: List[str], pre
         meta_pred_sequence = label_sequence(meta_token_list, meta_dynamic_pred_list, 'dynamic_word')
         gold_sequences.append(meta_gold_sequence)
         pred_sequences.append(meta_pred_sequence)
+    if return_counts:
+        return entity_counts(gold_sequences, pred_sequences)
     f1 = f1_score(gold_sequences, pred_sequences, zero_division=0) if gold_sequences else 0.0
     return f1
 
-def compute_grammar_F1(gold_xml_list: List[str], pred_xml_list: List[str], data_type: str) -> float:
+def compute_grammar_F1(gold_xml_list: List[str], pred_xml_list: List[str], data_type: str,
+                       *, return_counts: bool = False) -> float | tuple[int, int, int]:
     """
         计算句法成分的F1分数，保留重复成分的计数。
 
@@ -214,7 +229,7 @@ def compute_grammar_F1(gold_xml_list: List[str], pred_xml_list: List[str], data_
            data_type：句法信息表示类型，两种，span和text，前者是(开始位置, 结束位置, 成分类型)，后者是(文本片段, 成分类型)
 
         Returns:
-            F1分数（0-1）
+            F1分数（0-1）；return_counts=True时返回(TP, FP, FN)。
     """
 
     def extract_text_with_positions(root, target_tags, data_type):
@@ -243,7 +258,7 @@ def compute_grammar_F1(gold_xml_list: List[str], pred_xml_list: List[str], data_
     if data_type not in {'text', 'span'}:
         raise ValueError(f'Unsupported grammar data_type: {data_type}')
     if len(gold_xml_list) != len(pred_xml_list) or len(gold_xml_list) == 0:
-        return 0
+        return (0, 0, 0) if return_counts else 0
     jufa_tags = ['sbj', 'prd', 'obj', 'att', 'adv', 'cmp', 'ind', 'pp', 'cc', 'uu', 'un', 'uv', 'ff']
     tp = 0
     fp = 0
@@ -261,6 +276,8 @@ def compute_grammar_F1(gold_xml_list: List[str], pred_xml_list: List[str], data_
         tp += sum((gold_set & pred_set).values())
         fp += sum((pred_set - gold_set).values())
         fn += sum((gold_set - pred_set).values())
+    if return_counts:
+        return tp, fp, fn
     precision = tp / (tp + fp) if tp + fp > 0 else 0
     recall = tp / (tp + fn) if tp + fn > 0 else 0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall > 0 else 0

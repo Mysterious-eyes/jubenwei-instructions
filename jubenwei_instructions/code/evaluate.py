@@ -38,7 +38,15 @@ def main():
     args = parser.parse_args()
     reference_path = resolve(args.reference)
     gold = json.loads(reference_path.read_text(encoding='utf-8-sig'))
-    paths = sorted((ROOT / 'evaluation/predictions').glob('*.txt')) if args.all else [resolve(args.prediction)]
+    if args.all:
+        conditions = json.loads((ROOT / 'evaluation/conditions.json').read_text(encoding='utf-8'))
+        paths = [resolve(row['predictions']) for row in conditions['conditions']]
+        missing = [p.name for p in paths if not p.is_file()]
+        if missing:
+            parser.error('Missing archived TXT predictions: ' + ', '.join(missing)
+                         + '. For the public JSONL release, use rescore_release.py.')
+    else:
+        paths = [resolve(args.prediction)]
     results = {}
     for path in paths:
         predictions = read_data_from_txt(path)

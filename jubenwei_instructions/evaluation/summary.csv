@@ -1,0 +1,7 @@
+condition,model,project_sft,thinking_mode,n_inputs,n_xml_parsable,n_xml_unparsable,n_text_consistent,n_text_inconsistent,n_f1_scored,n_structure_comparable,n_structure_exact,xml_parsable_pct,text_consistent_pct_all,segmentation_f1_pct,pos_f1_pct,dynamic_f1_pct,syntax_f1_pct,structure_exact_pct_comparable,structure_exact_pct_all
+qwen25_unadapted,Qwen2.5-7B-Instruct,0,not_applicable,1200,831,369,171,660,831,831,4,69.25,14.25,61.33,30.88,0.00,13.94,0.48,0.33
+qwen25_sft,Qwen2.5-7B-Instruct,1,not_applicable,1200,1116,84,1029,87,1116,1116,414,93.00,85.75,95.20,91.29,66.03,85.96,37.10,34.50
+qwen3_unadapted_thinking_off,Qwen3-4B,0,off,1200,739,461,134,605,739,739,21,61.58,11.17,56.55,29.49,1.30,14.16,2.84,1.75
+qwen3_unadapted_thinking_on,Qwen3-4B,0,on,1200,905,295,215,690,905,905,73,75.42,17.92,67.68,54.05,4.20,26.69,8.07,6.08
+qwen3_sft_thinking_off,Qwen3-4B,1,off,1200,999,201,635,364,999,999,48,83.25,52.92,90.44,58.52,4.18,34.24,4.80,4.00
+qwen3_sft_thinking_on,Qwen3-4B,1,on,1200,1137,63,1026,111,1137,1137,359,94.75,85.50,94.34,90.27,61.72,83.93,31.57,29.92

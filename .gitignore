@@ -17,6 +17,5 @@ Thumbs.db
 **/training_instance/
 **/evaluation/reference.json
 **/evaluation/predictions/
-**/evaluation/scores/
 **/statistics/
 **/code/inference/sentences.txt

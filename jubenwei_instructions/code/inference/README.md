@@ -43,19 +43,13 @@ The Qwen3 client also saves `.raw.jsonl` responses and `.meta.json` run metadata
 
 ## Evaluate saved predictions
 
-With the matching reference file installed:
+For a new four-field client output, use the corresponding reference and the original TXT scorer:
 
 ```sh
-python -B code/evaluate.py --prediction reproduced/inference/YOUR_RESULT.txt
+python -B code/evaluate.py --reference reproduced/public_reference/reference.json --prediction reproduced/inference/YOUR_RESULT.txt
 ```
 
-For a reconstructed reference, add `--reference reproduced/evaluation_reference/reference.json`. To rescore the study's six saved conditions, install the associated prediction files and run:
-
-```sh
-python -B code/evaluate.py --all
-```
-
-The evaluator derives the scores from saved final XML, independently of a model service. The [main README](../../../README.md) describes the data files required for these commands.
+To reproduce the six published conditions from the saved final answers, follow the [evaluation guide](../../evaluation/README.md).
 
 ## Offline checks
 

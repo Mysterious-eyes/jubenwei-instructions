@@ -1,0 +1,151 @@
+{
+  "scope": "Figure sources, aggregate inputs, captions and reference PNGs",
+  "figures": 7,
+  "languages": [
+    "en",
+    "zh"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 44,
+      "sha256": "042101ac635a3d5a3f943551eb56ad73ab3050f357bbe0a5791646bddc810d14"
+    },
+    {
+      "path": "captions.json",
+      "bytes": 9608,
+      "sha256": "f7cbb7637be457f6eee9ec1af58aba2e411bf0473e2f3369dc2e029202cf4f6d"
+    },
+    {
+      "path": "data/figure_data.json",
+      "bytes": 27458,
+      "sha256": "625596fd839025d86aed2446170534ec9a85658cf9f4fc0cfc4c45444558170e"
+    },
+    {
+      "path": "data/published_pngs.json",
+      "bytes": 2822,
+      "sha256": "2b7cc2bbfe680777eb8a2d98132b08a77cdd7c144316790c9f04fc4b764bca75"
+    },
+    {
+      "path": "data/style.json",
+      "bytes": 523,
+      "sha256": "2335c4567c67fc743165bfae31682ec48e701459071f88ba9318a906dc5095e3"
+    },
+    {
+      "path": "native/diagrams.mjs",
+      "bytes": 15223,
+      "sha256": "6baa31b98b9423ad8d2e5c43ac19861ce2a609e2b7016aebe59202bb566da136"
+    },
+    {
+      "path": "native/helpers.mjs",
+      "bytes": 11495,
+      "sha256": "3b0e43040f5877c15627af598bae9a08c06320264b4c4748c86252070a2b145e"
+    },
+    {
+      "path": "native/statistical_figures.mjs",
+      "bytes": 21253,
+      "sha256": "50d22e99743bb59793d0fdfadb39be895ca9d8badbf246b7d065b9929b75f7c0"
+    },
+    {
+      "path": "png/en/Figure_01.png",
+      "bytes": 367413,
+      "sha256": "c0817b21f03600b5e07274fae0c143a0c65e125f94c408034b1550c9b5fd0362"
+    },
+    {
+      "path": "png/en/Figure_02.png",
+      "bytes": 304250,
+      "sha256": "1989ef60985f48ded8cce186d19bb071af898c5513f163c912527ea9e4f2d088"
+    },
+    {
+      "path": "png/en/Figure_03.png",
+      "bytes": 350057,
+      "sha256": "e6c2f4d57e9fd00516d5fddc5258b95d443586f0f62e7d5189b2b0a5bcb85ac9"
+    },
+    {
+      "path": "png/en/Figure_04.png",
+      "bytes": 321743,
+      "sha256": "e4ce7d64d0ade4564f5dba5456eea19cd739684ab918d9d06def48e6afc6cc99"
+    },
+    {
+      "path": "png/en/Figure_05.png",
+      "bytes": 284596,
+      "sha256": "d87f6d98f3abdf0850764643168627562e7b7fd20e1b9f60093bf15bfc8bcfba"
+    },
+    {
+      "path": "png/en/Figure_06.png",
+      "bytes": 326582,
+      "sha256": "3fb1fab8ad457276759bb022dee157e6cfe08f9f6dac7186aea88dcdddb76c68"
+    },
+    {
+      "path": "png/en/Figure_07.png",
+      "bytes": 380810,
+      "sha256": "ba0235425c061a20753a28f9742c7757d7237c14eec1d844f5b5462806860295"
+    },
+    {
+      "path": "png/zh/Figure_01.png",
+      "bytes": 418653,
+      "sha256": "a14f5384ccd5324ede788af44f150b5e4d565492ad3d06dcf97f56dda3b78234"
+    },
+    {
+      "path": "png/zh/Figure_02.png",
+      "bytes": 280312,
+      "sha256": "eae2fee2e659ca3ddf4ae4ab906f0b9bdc0c603ae8cfe66b784f3f8f74e56752"
+    },
+    {
+      "path": "png/zh/Figure_03.png",
+      "bytes": 371443,
+      "sha256": "e8fdcbeb154b92af62d26614010c6e0dc1e0d9e2f2cfdc5e5a3860b019f2f064"
+    },
+    {
+      "path": "png/zh/Figure_04.png",
+      "bytes": 351768,
+      "sha256": "df7a4a9177f04c1a41770d066534a8ce431bc19bfa328d71035db70853a341e8"
+    },
+    {
+      "path": "png/zh/Figure_05.png",
+      "bytes": 288745,
+      "sha256": "b3e7acf09dc7815433210294b62869a4c162d7eb59f136d610327c2b8c378824"
+    },
+    {
+      "path": "png/zh/Figure_06.png",
+      "bytes": 329413,
+      "sha256": "3553eac8bb5fbafc8a25b0e165fcf37662408c5fd3805f1da35c8a80d6cb32d4"
+    },
+    {
+      "path": "png/zh/Figure_07.png",
+      "bytes": 398451,
+      "sha256": "201aec533b916ea14d1b98aabd9d3ca8453a7525e315c6b41356d49021e4f1f3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5183,
+      "sha256": "8d88ce46471c767bea4909e9c6a70237042d1cfbf3db6fc06d8f7493c646ceb6"
+    },
+    {
+      "path": "rebuild.py",
+      "bytes": 4945,
+      "sha256": "588dac4731235efbae7810bb4aa0a5a87562e9a9f2670423be082015e5d8d1fc"
+    },
+    {
+      "path": "render_native.mjs",
+      "bytes": 3263,
+      "sha256": "66032514a254728cd420095dd558a5848039cac2e0163322d9f6a5e137f6b154"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 11,
+      "sha256": "53233e8dfbed17a27fb6404f34b68fe2a8d00d68c743c4e6f4ac073b2833bab2"
+    },
+    {
+      "path": "source/figure_01.py",
+      "bytes": 11492,
+      "sha256": "86baf8986a180d9172ea777beadc09072a61083e9ba4ada1ca57ab271230877c"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 2187,
+      "sha256": "78d5014eff6c1510de275cf2bd5c325a4d9e9be46eeca803d46574445458694e"
+    }
+  ],
+  "manifest_excludes_itself": true
+}

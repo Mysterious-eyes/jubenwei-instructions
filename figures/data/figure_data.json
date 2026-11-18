@@ -1,0 +1,1024 @@
+{
+  "format_version": "1.0",
+  "counts": {
+    "source_files": 27,
+    "source_records": 5016,
+    "corpus_examples": 392764,
+    "symbol_examples": 107,
+    "full_examples": 392871,
+    "training_sources": 3816,
+    "training_examples": 15923,
+    "test_records": 1200
+  },
+  "tasks": [
+    {
+      "id": "A1",
+      "stem": "learn_tag_1",
+      "label_en": "Label meanings",
+      "label_zh": "标签释义",
+      "full_n": 54,
+      "training_n": 54
+    },
+    {
+      "id": "A2",
+      "stem": "learn_tag_2",
+      "label_en": "Meaning-to-label",
+      "label_zh": "含义到标签",
+      "full_n": 53,
+      "training_n": 53
+    },
+    {
+      "id": "A3",
+      "stem": "learn_tag_3",
+      "label_en": "POS interpretation",
+      "label_zh": "标注词性解读",
+      "full_n": 91512,
+      "training_n": 1000
+    },
+    {
+      "id": "A4",
+      "stem": "learn_tag_4",
+      "label_en": "Constituent interpretation",
+      "label_zh": "标注成分解读",
+      "full_n": 64459,
+      "training_n": 1000
+    },
+    {
+      "id": "A5",
+      "stem": "learn_separate_1",
+      "label_en": "Word segmentation",
+      "label_zh": "分词",
+      "full_n": 5016,
+      "training_n": 1000
+    },
+    {
+      "id": "A6",
+      "stem": "learn_pos_2",
+      "label_en": "POS prediction",
+      "label_zh": "语境词性",
+      "full_n": 91512,
+      "training_n": 1000
+    },
+    {
+      "id": "A7",
+      "stem": "dongtaici_1",
+      "label_en": "Dynamic word detection",
+      "label_zh": "动态词识别",
+      "full_n": 10864,
+      "training_n": 1000
+    },
+    {
+      "id": "A8",
+      "stem": "dongtaici_2",
+      "label_en": "Dynamic word structure",
+      "label_zh": "动态词结构",
+      "full_n": 10941,
+      "training_n": 1000
+    },
+    {
+      "id": "A11",
+      "stem": "learn_grammar_2",
+      "label_en": "Constituent prediction",
+      "label_zh": "句法成分",
+      "full_n": 64459,
+      "training_n": 1000
+    },
+    {
+      "id": "A9",
+      "stem": "xiaoju_1",
+      "label_en": "Clause segmentation",
+      "label_zh": "小句切分",
+      "full_n": 5016,
+      "training_n": 1000
+    },
+    {
+      "id": "A10",
+      "stem": "single_core_1",
+      "label_en": "Single-core structure",
+      "label_zh": "单核结构",
+      "full_n": 10864,
+      "training_n": 1000
+    },
+    {
+      "id": "A12",
+      "stem": "weiciyu_1",
+      "label_en": "Governing scope",
+      "label_zh": "谓核辖域",
+      "full_n": 17240,
+      "training_n": 1000
+    },
+    {
+      "id": "A13",
+      "stem": "fuzaju_1",
+      "label_en": "Complex constructions",
+      "label_zh": "复杂句式",
+      "full_n": 10864,
+      "training_n": 1000
+    },
+    {
+      "id": "A14",
+      "stem": "XML_rule_1",
+      "label_en": "XML checks and repair",
+      "label_zh": "XML 检查修复",
+      "full_n": 5001,
+      "training_n": 1000
+    },
+    {
+      "id": "M0",
+      "stem": "overall_1",
+      "label_en": "Full annotation (main)",
+      "label_zh": "整句标注（主任务）",
+      "full_n": 5016,
+      "training_n": 3816
+    }
+  ],
+  "figures": [
+    {
+      "number": 3,
+      "panels": [
+        {
+          "id": "a",
+          "total": 392871,
+          "scale": "log10"
+        },
+        {
+          "id": "b",
+          "total": 15923,
+          "scale": "linear"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "panels": [
+        {
+          "id": "a",
+          "rows": [
+            {
+              "stem": "learn_tag_1",
+              "n": 54,
+              "p10": 12.0,
+              "p25": 12.0,
+              "median": 14.0,
+              "p75": 14.75,
+              "p90": 19.700000000000003,
+              "median_display": "14"
+            },
+            {
+              "stem": "learn_tag_2",
+              "n": 53,
+              "p10": 16.0,
+              "p25": 16.0,
+              "median": 18.0,
+              "p75": 19.0,
+              "p90": 24.0,
+              "median_display": "18"
+            },
+            {
+              "stem": "learn_tag_3",
+              "n": 91512,
+              "p10": 80.0,
+              "p25": 80.0,
+              "median": 80.0,
+              "p75": 83.0,
+              "p90": 83.0,
+              "median_display": "80"
+            },
+            {
+              "stem": "learn_tag_4",
+              "n": 64459,
+              "p10": 88.0,
+              "p25": 89.0,
+              "median": 91.0,
+              "p75": 97.0,
+              "p90": 107.0,
+              "median_display": "91"
+            },
+            {
+              "stem": "learn_separate_1",
+              "n": 5016,
+              "p10": 8.0,
+              "p25": 18.0,
+              "median": 32.0,
+              "p75": 55.0,
+              "p90": 82.0,
+              "median_display": "32"
+            },
+            {
+              "stem": "learn_pos_2",
+              "n": 91512,
+              "p10": 20.0,
+              "p25": 20.0,
+              "median": 20.0,
+              "p75": 21.0,
+              "p90": 21.0,
+              "median_display": "20"
+            },
+            {
+              "stem": "dongtaici_1",
+              "n": 10864,
+              "p10": 76.0,
+              "p25": 76.0,
+              "median": 189.0,
+              "p75": 206.0,
+              "p90": 218.0,
+              "median_display": "189"
+            },
+            {
+              "stem": "dongtaici_2",
+              "n": 10941,
+              "p10": 188.0,
+              "p25": 188.0,
+              "median": 188.0,
+              "p75": 195.0,
+              "p90": 212.0,
+              "median_display": "188"
+            },
+            {
+              "stem": "learn_grammar_2",
+              "n": 64459,
+              "p10": 22.0,
+              "p25": 22.0,
+              "median": 23.0,
+              "p75": 25.0,
+              "p90": 28.0,
+              "median_display": "23"
+            },
+            {
+              "stem": "xiaoju_1",
+              "n": 5016,
+              "p10": 129.0,
+              "p25": 135.0,
+              "median": 145.0,
+              "p75": 161.0,
+              "p90": 180.0,
+              "median_display": "145"
+            },
+            {
+              "stem": "single_core_1",
+              "n": 10864,
+              "p10": 21.0,
+              "p25": 23.0,
+              "median": 25.0,
+              "p75": 30.0,
+              "p90": 39.0,
+              "median_display": "25"
+            },
+            {
+              "stem": "weiciyu_1",
+              "n": 17240,
+              "p10": 41.0,
+              "p25": 43.0,
+              "median": 46.0,
+              "p75": 52.0,
+              "p90": 62.0,
+              "median_display": "46"
+            },
+            {
+              "stem": "fuzaju_1",
+              "n": 10864,
+              "p10": 2.0,
+              "p25": 5.0,
+              "median": 13.0,
+              "p75": 13.0,
+              "p90": 13.0,
+              "median_display": "13"
+            },
+            {
+              "stem": "XML_rule_1",
+              "n": 5001,
+              "p10": 121.0,
+              "p25": 238.0,
+              "median": 428.0,
+              "p75": 657.0,
+              "p90": 925.0,
+              "median_display": "428"
+            },
+            {
+              "stem": "overall_1",
+              "n": 5016,
+              "p10": 556.0,
+              "p25": 858.75,
+              "median": 1384.5,
+              "p75": 2160.25,
+              "p90": 3114.0,
+              "median_display": "1,384.5"
+            }
+          ],
+          "unit": "Unicode code points",
+          "quantile_method": "linear interpolation"
+        },
+        {
+          "id": "b",
+          "rows": [
+            {
+              "label_en": "Stepwise explanation",
+              "label_zh": "带分步解释",
+              "count": 210049,
+              "display_percent": "53.47"
+            },
+            {
+              "label_en": "Direct answer",
+              "label_zh": "直接回答",
+              "count": 182822,
+              "display_percent": "46.53"
+            }
+          ],
+          "denominator": 392871
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "population": 5016,
+      "attribute_totals": {
+        "scp": 17240,
+        "fun": 5325,
+        "mod": 10941
+      },
+      "mod_distinct_patterns": 593,
+      "top10_mod_total": 5177,
+      "panels": [
+        {
+          "id": "a",
+          "attribute": "scp",
+          "rows": [
+            {
+              "code": "V",
+              "count": 8512,
+              "meaning_en": "No O/C",
+              "meaning_zh": "无宾补",
+              "codepoints": [
+                "U+0056"
+              ]
+            },
+            {
+              "code": "VO",
+              "count": 7796,
+              "meaning_en": "V–O",
+              "meaning_zh": "动—宾",
+              "codepoints": [
+                "U+0056",
+                "U+004F"
+              ]
+            },
+            {
+              "code": "VC",
+              "count": 607,
+              "meaning_en": "V–C",
+              "meaning_zh": "动—补",
+              "codepoints": [
+                "U+0056",
+                "U+0043"
+              ]
+            },
+            {
+              "code": "VOC",
+              "count": 248,
+              "meaning_en": "V–O–C",
+              "meaning_zh": "动—宾—补",
+              "codepoints": [
+                "U+0056",
+                "U+004F",
+                "U+0043"
+              ]
+            },
+            {
+              "code": "VOO",
+              "count": 46,
+              "meaning_en": "V–O–O",
+              "meaning_zh": "动—双宾",
+              "codepoints": [
+                "U+0056",
+                "U+004F",
+                "U+004F"
+              ]
+            },
+            {
+              "code": "OV",
+              "count": 25,
+              "meaning_en": "O–V",
+              "meaning_zh": "宾—动",
+              "codepoints": [
+                "U+004F",
+                "U+0056"
+              ]
+            },
+            {
+              "code": "VCO",
+              "count": 5,
+              "meaning_en": "V–C–O",
+              "meaning_zh": "动—补—宾",
+              "codepoints": [
+                "U+0056",
+                "U+0043",
+                "U+004F"
+              ]
+            },
+            {
+              "code": "VOCC",
+              "count": 1,
+              "meaning_en": "V–O–C–C",
+              "meaning_zh": "动—宾—双补",
+              "codepoints": [
+                "U+0056",
+                "U+004F",
+                "U+0043",
+                "U+0043"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "attribute": "fun",
+          "rows": [
+            {
+              "code": "SYN",
+              "count": 2033,
+              "meaning_en": "Synthetic",
+              "meaning_zh": "合成谓语",
+              "codepoints": [
+                "U+0053",
+                "U+0059",
+                "U+004E"
+              ]
+            },
+            {
+              "code": "COO",
+              "count": 1147,
+              "meaning_en": "Nominal coord.",
+              "meaning_zh": "体词并列",
+              "codepoints": [
+                "U+0043",
+                "U+004F",
+                "U+004F"
+              ]
+            },
+            {
+              "code": "UNI",
+              "count": 707,
+              "meaning_en": "Union",
+              "meaning_zh": "联合谓语",
+              "codepoints": [
+                "U+0055",
+                "U+004E",
+                "U+0049"
+              ]
+            },
+            {
+              "code": "PVT",
+              "count": 479,
+              "meaning_en": "Pivotal",
+              "meaning_zh": "兼语",
+              "codepoints": [
+                "U+0050",
+                "U+0056",
+                "U+0054"
+              ]
+            },
+            {
+              "code": "SER",
+              "count": 446,
+              "meaning_en": "Serial-verb",
+              "meaning_zh": "连动",
+              "codepoints": [
+                "U+0053",
+                "U+0045",
+                "U+0052"
+              ]
+            },
+            {
+              "code": "APP",
+              "count": 374,
+              "meaning_en": "Apposition",
+              "meaning_zh": "同位",
+              "codepoints": [
+                "U+0041",
+                "U+0050",
+                "U+0050"
+              ]
+            },
+            {
+              "code": "uni",
+              "count": 124,
+              "meaning_en": "Union",
+              "meaning_zh": "联合谓语",
+              "codepoints": [
+                "U+0075",
+                "U+006E",
+                "U+0069"
+              ]
+            },
+            {
+              "code": "coo",
+              "count": 15,
+              "meaning_en": "Nominal coord.",
+              "meaning_zh": "体词并列",
+              "codepoints": [
+                "U+0063",
+                "U+006F",
+                "U+006F"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "attribute": "mod",
+          "rows": [
+            {
+              "code": "m-q",
+              "count": 941,
+              "meaning_en": "Other lexical relation",
+              "meaning_zh": "其他词法",
+              "codepoints": [
+                "U+006D",
+                "U+002D",
+                "U+0071"
+              ]
+            },
+            {
+              "code": "v-u",
+              "count": 817,
+              "meaning_en": "Other lexical relation",
+              "meaning_zh": "其他词法",
+              "codepoints": [
+                "U+0076",
+                "U+002D",
+                "U+0075"
+              ]
+            },
+            {
+              "code": "v←v",
+              "count": 643,
+              "meaning_en": "Predicate–complement",
+              "meaning_zh": "述补",
+              "codepoints": [
+                "U+0076",
+                "U+2190",
+                "U+0076"
+              ]
+            },
+            {
+              "code": "n↗n",
+              "count": 515,
+              "meaning_en": "Attributive–head",
+              "meaning_zh": "定中",
+              "codepoints": [
+                "U+006E",
+                "U+2197",
+                "U+006E"
+              ]
+            },
+            {
+              "code": "n2↗n2",
+              "count": 453,
+              "meaning_en": "Attributive–head",
+              "meaning_zh": "定中",
+              "codepoints": [
+                "U+006E",
+                "U+0032",
+                "U+2197",
+                "U+006E",
+                "U+0032"
+              ]
+            },
+            {
+              "code": "a↗n",
+              "count": 446,
+              "meaning_en": "Attributive–head",
+              "meaning_zh": "定中",
+              "codepoints": [
+                "U+0061",
+                "U+2197",
+                "U+006E"
+              ]
+            },
+            {
+              "code": "v2-u",
+              "count": 394,
+              "meaning_en": "Other lexical relation",
+              "meaning_zh": "其他词法",
+              "codepoints": [
+                "U+0076",
+                "U+0032",
+                "U+002D",
+                "U+0075"
+              ]
+            },
+            {
+              "code": "v｜n",
+              "count": 340,
+              "meaning_en": "Verb–object",
+              "meaning_zh": "动宾",
+              "codepoints": [
+                "U+0076",
+                "U+FF5C",
+                "U+006E"
+              ]
+            },
+            {
+              "code": "n-f",
+              "count": 316,
+              "meaning_en": "Other lexical relation",
+              "meaning_zh": "其他词法",
+              "codepoints": [
+                "U+006E",
+                "U+002D",
+                "U+0066"
+              ]
+            },
+            {
+              "code": "d→v",
+              "count": 312,
+              "meaning_en": "Adverbial–head",
+              "meaning_zh": "状中",
+              "codepoints": [
+                "U+0064",
+                "U+2192",
+                "U+0076"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "conditions": [
+        {
+          "id": "qwen25_no_task_sft",
+          "model": "Qwen2.5-7B-Instruct",
+          "project_sft": false,
+          "thinking_mode": null,
+          "total": 1200,
+          "valid": 831,
+          "invalid": 369,
+          "text_consistent": 171,
+          "text_mismatch": 660,
+          "structure_correct": 4,
+          "comparable": 831,
+          "metrics": {
+            "parsable_percent": 69.25,
+            "parsable_text_consistent_percent": 14.249999999999998,
+            "all_input_structure_percent": 0.33333333333333337,
+            "conditional_structure_percent": 0.48134777376654636,
+            "f1_percent": [
+              61.32634236333625,
+              30.87678415380134,
+              0.0,
+              13.943302104878939
+            ]
+          },
+          "display": {
+            "parsable_percent": "69.25",
+            "parsable_text_consistent_percent": "14.25",
+            "all_input_structure_percent": "0.33",
+            "conditional_structure_percent": "0.48",
+            "f1_percent": [
+              "61.33",
+              "30.88",
+              "0.00",
+              "13.94"
+            ]
+          }
+        },
+        {
+          "id": "qwen25_after_sft",
+          "model": "Qwen2.5-7B-Instruct",
+          "project_sft": true,
+          "thinking_mode": null,
+          "total": 1200,
+          "valid": 1116,
+          "invalid": 84,
+          "text_consistent": 1029,
+          "text_mismatch": 87,
+          "structure_correct": 414,
+          "comparable": 1116,
+          "metrics": {
+            "parsable_percent": 93.0,
+            "parsable_text_consistent_percent": 85.75,
+            "all_input_structure_percent": 34.5,
+            "conditional_structure_percent": 37.096774193548384,
+            "f1_percent": [
+              95.19504436631509,
+              91.28857637144931,
+              66.03073661897191,
+              85.9624302444392
+            ]
+          },
+          "display": {
+            "parsable_percent": "93.00",
+            "parsable_text_consistent_percent": "85.75",
+            "all_input_structure_percent": "34.50",
+            "conditional_structure_percent": "37.10",
+            "f1_percent": [
+              "95.20",
+              "91.29",
+              "66.03",
+              "85.96"
+            ]
+          }
+        },
+        {
+          "id": "qwen3_off_no_task_sft",
+          "model": "Qwen3-4B",
+          "project_sft": false,
+          "thinking_mode": "off",
+          "total": 1200,
+          "valid": 739,
+          "invalid": 461,
+          "text_consistent": 134,
+          "text_mismatch": 605,
+          "structure_correct": 21,
+          "comparable": 739,
+          "metrics": {
+            "parsable_percent": 61.583333333333336,
+            "parsable_text_consistent_percent": 11.166666666666666,
+            "all_input_structure_percent": 1.7500000000000002,
+            "conditional_structure_percent": 2.841677943166441,
+            "f1_percent": [
+              56.55098197471079,
+              29.48614474038203,
+              1.3001083423618636,
+              14.157894736842106
+            ]
+          },
+          "display": {
+            "parsable_percent": "61.58",
+            "parsable_text_consistent_percent": "11.17",
+            "all_input_structure_percent": "1.75",
+            "conditional_structure_percent": "2.84",
+            "f1_percent": [
+              "56.55",
+              "29.49",
+              "1.30",
+              "14.16"
+            ]
+          }
+        },
+        {
+          "id": "qwen3_off_after_sft",
+          "model": "Qwen3-4B",
+          "project_sft": true,
+          "thinking_mode": "off",
+          "total": 1200,
+          "valid": 999,
+          "invalid": 201,
+          "text_consistent": 635,
+          "text_mismatch": 364,
+          "structure_correct": 48,
+          "comparable": 999,
+          "metrics": {
+            "parsable_percent": 83.25,
+            "parsable_text_consistent_percent": 52.916666666666664,
+            "all_input_structure_percent": 4.0,
+            "conditional_structure_percent": 4.804804804804805,
+            "f1_percent": [
+              90.43704891740177,
+              58.52044907778669,
+              4.1826717883055915,
+              34.24474660074166
+            ]
+          },
+          "display": {
+            "parsable_percent": "83.25",
+            "parsable_text_consistent_percent": "52.92",
+            "all_input_structure_percent": "4.00",
+            "conditional_structure_percent": "4.80",
+            "f1_percent": [
+              "90.44",
+              "58.52",
+              "4.18",
+              "34.24"
+            ]
+          }
+        },
+        {
+          "id": "qwen3_on_no_task_sft",
+          "model": "Qwen3-4B",
+          "project_sft": false,
+          "thinking_mode": "on",
+          "total": 1200,
+          "valid": 905,
+          "invalid": 295,
+          "text_consistent": 215,
+          "text_mismatch": 690,
+          "structure_correct": 73,
+          "comparable": 905,
+          "metrics": {
+            "parsable_percent": 75.41666666666667,
+            "parsable_text_consistent_percent": 17.916666666666668,
+            "all_input_structure_percent": 6.083333333333334,
+            "conditional_structure_percent": 8.066298342541437,
+            "f1_percent": [
+              67.67860563110514,
+              54.05094809423482,
+              4.201050262565642,
+              26.68705792391512
+            ]
+          },
+          "display": {
+            "parsable_percent": "75.42",
+            "parsable_text_consistent_percent": "17.92",
+            "all_input_structure_percent": "6.08",
+            "conditional_structure_percent": "8.07",
+            "f1_percent": [
+              "67.68",
+              "54.05",
+              "4.20",
+              "26.69"
+            ]
+          }
+        },
+        {
+          "id": "qwen3_on_after_sft",
+          "model": "Qwen3-4B",
+          "project_sft": true,
+          "thinking_mode": "on",
+          "total": 1200,
+          "valid": 1137,
+          "invalid": 63,
+          "text_consistent": 1026,
+          "text_mismatch": 111,
+          "structure_correct": 359,
+          "comparable": 1137,
+          "metrics": {
+            "parsable_percent": 94.75,
+            "parsable_text_consistent_percent": 85.5,
+            "all_input_structure_percent": 29.916666666666668,
+            "conditional_structure_percent": 31.574318381706245,
+            "f1_percent": [
+              94.33854166666666,
+              90.265625,
+              61.71875,
+              83.92525407059338
+            ]
+          },
+          "display": {
+            "parsable_percent": "94.75",
+            "parsable_text_consistent_percent": "85.50",
+            "all_input_structure_percent": "29.92",
+            "conditional_structure_percent": "31.57",
+            "f1_percent": [
+              "94.34",
+              "90.27",
+              "61.72",
+              "83.93"
+            ]
+          }
+        }
+      ],
+      "panels": [
+        {
+          "id": "a",
+          "metric": "parsable_percent",
+          "title_en": "XML parsability",
+          "title_zh": "XML可解析率",
+          "denominator": 1200,
+          "groups": [
+            {
+              "label_en": "Qwen2.5",
+              "label_zh": "Qwen2.5",
+              "conditions": [
+                "qwen25_no_task_sft",
+                "qwen25_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking off",
+              "label_zh": "Qwen3 思考关",
+              "conditions": [
+                "qwen3_off_no_task_sft",
+                "qwen3_off_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking on",
+              "label_zh": "Qwen3 思考开",
+              "conditions": [
+                "qwen3_on_no_task_sft",
+                "qwen3_on_after_sft"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "metric": "parsable_text_consistent_percent",
+          "title_en": "Parsable and text-consistent",
+          "title_zh": "可解析且文本一致率",
+          "denominator": 1200,
+          "groups": [
+            {
+              "label_en": "Qwen2.5",
+              "label_zh": "Qwen2.5",
+              "conditions": [
+                "qwen25_no_task_sft",
+                "qwen25_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking off",
+              "label_zh": "Qwen3 思考关",
+              "conditions": [
+                "qwen3_off_no_task_sft",
+                "qwen3_off_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking on",
+              "label_zh": "Qwen3 思考开",
+              "conditions": [
+                "qwen3_on_no_task_sft",
+                "qwen3_on_after_sft"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "metric": "f1_percent",
+          "title_en": "Qwen2.5: F1",
+          "title_zh": "Qwen2.5 F1",
+          "conditions": [
+            "qwen25_no_task_sft",
+            "qwen25_after_sft"
+          ],
+          "denominators": [
+            831,
+            1116
+          ]
+        },
+        {
+          "id": "d",
+          "metric": "f1_percent",
+          "title_en": "Qwen3: thinking off",
+          "title_zh": "Qwen3 思考关 F1",
+          "conditions": [
+            "qwen3_off_no_task_sft",
+            "qwen3_off_after_sft"
+          ],
+          "denominators": [
+            739,
+            999
+          ]
+        },
+        {
+          "id": "e",
+          "metric": "f1_percent",
+          "title_en": "Qwen3: thinking on",
+          "title_zh": "Qwen3 思考开 F1",
+          "conditions": [
+            "qwen3_on_no_task_sft",
+            "qwen3_on_after_sft"
+          ],
+          "denominators": [
+            905,
+            1137
+          ]
+        },
+        {
+          "id": "f",
+          "metric": "all_input_structure_percent",
+          "title_en": "All-record structure match",
+          "title_zh": "全量结构匹配率",
+          "denominator": 1200,
+          "groups": [
+            {
+              "label_en": "Qwen2.5",
+              "label_zh": "Qwen2.5",
+              "conditions": [
+                "qwen25_no_task_sft",
+                "qwen25_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking off",
+              "label_zh": "Qwen3 思考关",
+              "conditions": [
+                "qwen3_off_no_task_sft",
+                "qwen3_off_after_sft"
+              ]
+            },
+            {
+              "label_en": "Qwen3: thinking on",
+              "label_zh": "Qwen3 思考开",
+              "conditions": [
+                "qwen3_on_no_task_sft",
+                "qwen3_on_after_sft"
+              ]
+            }
+          ]
+        }
+      ],
+      "f1_metric_order": [
+        "separated_f1",
+        "pos_f1",
+        "dynamic_f1",
+        "grammar_f1"
+      ]
+    }
+  ]
+}

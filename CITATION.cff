@@ -26,3 +26,24 @@ authors:
     given-names: "Xiaobing"
     affiliation: "Minzu University of China"
 repository-code: "https://github.com/Mysterious-eyes/jubenwei-instructions"
+references:
+  - type: data
+    title: "From Human Parsing to Instruction Tuning: A Dataset for Chinese Grammar Teaching in Second Language Acquisition"
+    authors:
+      - family-names: Yang
+        given-names: Xinyu
+      - family-names: Sun
+        given-names: Jingbo
+      - family-names: Liu
+        given-names: Haitao
+      - family-names: Peng
+        given-names: Weiming
+      - family-names: Gao
+        given-names: Ge
+      - family-names: Chen
+        given-names: Bo
+      - family-names: Zhao
+        given-names: Xiaobing
+    doi: "10.5281/zenodo.24343396"
+    url: "https://zenodo.org/records/24343396"
+    year: 2026
