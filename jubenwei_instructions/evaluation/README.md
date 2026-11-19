@@ -1,5 +1,7 @@
 # Evaluation of sentence annotation
 
+The current code and figure package is [v1.2.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.2.0). It preserves the v1.1.0 training construction, the shared-prompt client alignment from v1.1.1, and the model-output archive and scores from validation-v1.0.0.
+
 All six conditions used the same 1,200 test records in the same order. The trained checkpoints used 15,742 examples under whole-sentence text exclusion. Release v1.1.0 corrects the earlier training-set reconstruction. The prediction files and their scores are those archived in validation-v1.0.0. Test IDs run from `T0001` through `T1200`. They link the model answers, diagnostics and reference records. The condition IDs and model settings are in [conditions.json](conditions.json).
 
 The experimenter confirmed that all six conditions, including both Qwen2.5 conditions, used the same [system prompt](../code/inference/qwen3_shared_system_prompt.txt). It specifies the SPS annotation conventions and includes two annotated sentence examples, followed by the sentence-specific request in the user message. The file's original name is retained. The clients in [v1.1.1](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1) now share that default prompt. This update does not replace the archived predictions or scores; configurable client defaults are not used to infer the decoding settings of the original runs.

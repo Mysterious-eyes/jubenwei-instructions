@@ -2,19 +2,21 @@
 
 An instruction tuning dataset for teaching Chinese grammar, built from the Chinese Sentence Pattern Structure Treebank. The 5,016 annotated sentences yield 392,764 sentence-, clause- and node-level examples. A symbol glossary contributes another 107 examples, bringing the total to **392,871 across 15 tasks**.
 
+Code and figure package **v1.2.0** accompanies the manuscript *From human parsing to instruction tuning: a Chinese grammar teaching dataset for second language acquisition*. It contains the current manuscript figures and their editable drawing sources. The instruction dataset retains its original Zenodo title and DOI; its 15 JSON files and the archived evaluation outputs are unchanged.
+
 | Resource | Where to find it |
 |---|---|
 | Instruction dataset · 15 JSON task files | [Zenodo · DOI 10.5281/zenodo.24343396](https://doi.org/10.5281/zenodo.24343396) · [GitHub ZIP mirror](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/download/data-v1.0.0/jubenwei-instructions-data-v1.0.0.zip) · [Task catalog](jubenwei_instructions/task_catalog.json) |
 | Original treebank · 27 XML files | [LDC2025T06](https://catalog.ldc.upenn.edu/LDC2025T06) · [DOI 10.35111/hx6v-6p30](https://doi.org/10.35111/hx6v-6p30) |
 | Six model conditions · 1,200 test records each | [Summary CSV](jubenwei_instructions/evaluation/summary.csv) · [Per-sentence scores](jubenwei_instructions/evaluation/per_case_metrics.csv) · [7,200 final answers (ZIP)](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/download/validation-v1.0.0/model-outputs-v1.0.0.zip) |
 | Data construction, model training and scoring | [Construction guide](jubenwei_instructions/code/build_dataset/README.md) · [LoRA configurations](jubenwei_instructions/configs/) · [Inference](jubenwei_instructions/code/inference/README.md) · [Evaluation](jubenwei_instructions/evaluation/README.md) |
-| Figures 1–7 | [Manuscript figures, source files and plotted values](figures/) |
+| Figures 1–7 · v1.2.0 | [Manuscript figures, editable sources and plotted values](figures/) · [Code and figure release](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.2.0) |
 
 ## Model validation
 
 Both models were fine-tuned on the same 15,742 training examples. The fixed test set contains 1,200 records representing 1,100 distinct whole-sentence texts. Each row below represents one run on the same 1,200 test records. **Task SFT** refers to the fine-tuning performed for this dataset. The two tuned Qwen3 rows use the same checkpoint with thinking disabled or enabled at inference.
 
-All six conditions used the same [system prompt](jubenwei_instructions/code/inference/qwen3_shared_system_prompt.txt), which describes the SPS tags and attributes and contains two annotated sentence examples. A user message then supplies the sentence-annotation request. Both clients in [code release v1.1.1](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1) load this prompt by default.
+All six conditions used the same [system prompt](jubenwei_instructions/code/inference/qwen3_shared_system_prompt.txt), which describes the SPS tags and attributes and contains two annotated sentence examples. A user message then supplies the sentence-annotation request. Both clients load this prompt by default, preserving the shared-prompt setup introduced in [v1.1.1](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1).
 
 | Model | Task SFT | Thinking | Parsable XML (%) | Segmentation F1 (%) | POS F1 (%) | Dynamic-word F1 (%) | Syntactic F1 (%) | Exact structure, all inputs (%) |
 |---|---|---|---:|---:|---:|---:|---:|---:|
@@ -61,10 +63,10 @@ The four training inputs from `select_training_data.py` are written to `reproduc
 
 ## Citation
 
-**Dataset:** Yang, X. et al. *From Human Parsing to Instruction Tuning: A Dataset for Chinese Grammar Teaching in Second Language Acquisition*. Zenodo (2026). [10.5281/zenodo.24343396](https://doi.org/10.5281/zenodo.24343396). The Zenodo record specifies CC BY 4.0 for the derived dataset.
+**Dataset:** Yang, X. et al. *From Human Parsing to Instruction Tuning: A Dataset for Chinese Grammar Teaching in Second Language Acquisition*. Zenodo (2026). [10.5281/zenodo.24343396](https://doi.org/10.5281/zenodo.24343396). The derived dataset is released under CC BY 4.0 with authorization from the rights holders. Its registered title is retained when citing the data.
 
 **Source treebank:** Peng, W. et al. *Chinese Sentence Pattern Structure Treebank*, LDC2025T06. Linguistic Data Consortium (2025). [10.35111/hx6v-6p30](https://doi.org/10.35111/hx6v-6p30).
 
-**Software and results:** [Code and shared-prompt clients v1.1.1](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1) · [Training-set construction v1.1.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.0) · [Archived model answers and scores validation-v1.0.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0) · [Software citation](CITATION.cff). The instruction data, training construction and archived scores are unchanged by the client update.
+**Software and results:** [Current code and figures v1.2.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.2.0) · [Shared-prompt client alignment v1.1.1](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1) · [Training-set construction v1.1.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.0) · [Archived model answers and scores validation-v1.0.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0) · [Software citation](CITATION.cff). Version v1.2.0 updates the manuscript figure package and release metadata; the data, training construction, shared prompt and reported scores retain their established versions.
 
 Correspondence: Jingbo Sun, Minzu University of China ([sunjingbo@muc.edu.cn](mailto:sunjingbo@muc.edu.cn)).

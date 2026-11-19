@@ -92,9 +92,10 @@
     "client_alignment_release": "v1.1.1"
   },
   "resource_versions": {
-    "code": "v1.1.1",
+    "code": "v1.2.0",
     "training_construction": "v1.1.0",
     "instruction_dataset_doi": "10.5281/zenodo.24343396",
-    "model_outputs": "validation-v1.0.0"
+    "model_outputs": "validation-v1.0.0",
+    "figure_package": "v1.2.0"
   }
 }

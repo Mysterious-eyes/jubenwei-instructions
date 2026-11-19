@@ -8,13 +8,13 @@
   "files": [
     {
       "path": ".gitignore",
-      "bytes": 44,
-      "sha256": "042101ac635a3d5a3f943551eb56ad73ab3050f357bbe0a5791646bddc810d14"
+      "bytes": 31,
+      "sha256": "19b325cc62906226b9710f418f935f4a4b2da394da72b025948cb646a37a1765"
     },
     {
       "path": "captions.json",
-      "bytes": 8829,
-      "sha256": "5c97ed9592f7048cee0b9a9a1edced03e09a1decf2bd5808fa9e317fb759a6a4"
+      "bytes": 8847,
+      "sha256": "e6b36d0aa99a815b0a1e440a2fc9423aba8d4f71b31e275114e933d8914bd79b"
     },
     {
       "path": "data/figure_data.json",
@@ -22,119 +22,99 @@
       "sha256": "245765099711e8db70d05989416a50668221ef5219d37a3e7afa15ff47d322ec"
     },
     {
-      "path": "data/style.json",
-      "bytes": 523,
-      "sha256": "2335c4567c67fc743165bfae31682ec48e701459071f88ba9318a906dc5095e3"
-    },
-    {
-      "path": "native/diagrams.mjs",
-      "bytes": 14750,
-      "sha256": "6c4a605dc1a160a0acc5b9c47b0339d61c73b87b06704fcd598bb4905ce59087"
-    },
-    {
-      "path": "native/helpers.mjs",
-      "bytes": 11495,
-      "sha256": "3b0e43040f5877c15627af598bae9a08c06320264b4c4748c86252070a2b145e"
-    },
-    {
-      "path": "native/statistical_figures.mjs",
-      "bytes": 21697,
-      "sha256": "5457419fb00502624e71d3a5dbfb3e316c1cf2402ada2c984a8a22c6a7a77a04"
-    },
-    {
       "path": "png/en/Figure_01.png",
-      "bytes": 384337,
-      "sha256": "875feb61402da45f4805467735529fb73dbb49f821074bb7ff315b57f62f41df"
+      "bytes": 471084,
+      "sha256": "439e988e670b40de60404da9ccc227057b8b99dbfa7bec00f53fbd0d7fd1fe75"
     },
     {
       "path": "png/en/Figure_02.png",
-      "bytes": 374076,
-      "sha256": "98264c74cab5d83946617cdc83aef98a8ea702a4ed63061d1dc23e1aac9142bd"
+      "bytes": 458959,
+      "sha256": "f7becdcfcf5ebc19616362c6237e0725195b9370e0f16523e946e973c80c8576"
     },
     {
       "path": "png/en/Figure_03.png",
-      "bytes": 355511,
-      "sha256": "328969d2fb86b8fae79ae4659b6b92541fdff3bb613787d299e372f6f0fb1290"
+      "bytes": 454771,
+      "sha256": "5d5f43171c683c2e90e3e47d4f7ea90aec1670d1124d78d0e0cf156efcf3b186"
     },
     {
       "path": "png/en/Figure_04.png",
-      "bytes": 349665,
-      "sha256": "86a3fb75cd8b74fe338a1c0c019e32286f39036e8e3db7107804e8d5f640e023"
+      "bytes": 403871,
+      "sha256": "182fed903d0042a37cdee3b41a3bc170eee6ba16999c7fc01487b1508c84f402"
     },
     {
       "path": "png/en/Figure_05.png",
-      "bytes": 313270,
-      "sha256": "7620f70ec0711db399ecc3c0a6b17f7ab12f4e07caab42fd5df631309a280c86"
+      "bytes": 403007,
+      "sha256": "c18e6790fe27de0682cbc536ae2cfa04b4c941ee4fd96853e2766b20774b342b"
     },
     {
       "path": "png/en/Figure_06.png",
-      "bytes": 326582,
-      "sha256": "3fb1fab8ad457276759bb022dee157e6cfe08f9f6dac7186aea88dcdddb76c68"
+      "bytes": 445040,
+      "sha256": "d90710a9de43619a572595f8b9c48024e1ac9047be9dae1d51dc33cac3809d60"
     },
     {
       "path": "png/en/Figure_07.png",
-      "bytes": 380810,
-      "sha256": "fe579122f26d1e72704847dd9e170e775843ff570ed842b423bfcd8e33eaa328"
+      "bytes": 639942,
+      "sha256": "137ef998ae10eb4bb7cfcbac6bb1706eb2dbb31830917fa3b8593bf40719134b"
     },
     {
       "path": "png/zh/Figure_01.png",
-      "bytes": 432932,
-      "sha256": "e14dc80dd9aea8ced55ca2adb8f18b32a87cb05d17974bab7a7a20dca26f564f"
+      "bytes": 488403,
+      "sha256": "9bc8061e3995c8a4e666ed7d3ab39f0b2e911a908a363cb91e51c81c8c01fc05"
     },
     {
       "path": "png/zh/Figure_02.png",
-      "bytes": 360520,
-      "sha256": "25624a70b4242fac4503e86ea3857054f0babd2b586acb317f11e68fc0f8b3c0"
+      "bytes": 472046,
+      "sha256": "21bbd1b1bef51c92d2fa0047422ddd02fcd25cd6d1bb6a6ac0a6d1fb2f565c11"
     },
     {
       "path": "png/zh/Figure_03.png",
-      "bytes": 377310,
-      "sha256": "df283355f0dfff25319fa30a1a4ec77428306267ce3308908884f55aacd4462c"
+      "bytes": 477665,
+      "sha256": "e1273ff4b6cd43ca994dc93dcad81ac2ef5790bb99c3b4094383bc3ff3a458f9"
     },
     {
       "path": "png/zh/Figure_04.png",
-      "bytes": 378319,
-      "sha256": "81c400b5401230c841a7e8e9692c12ca9e04ae6236d2bb10e0a111070561083c"
+      "bytes": 464961,
+      "sha256": "dc7f748d106f7675758adfe267264be94dcec0cd9e9ad3adfc0c30a093779d7c"
     },
     {
       "path": "png/zh/Figure_05.png",
-      "bytes": 326994,
-      "sha256": "3d97b2c66b9d1bd526523301ce7c1f8a489c36dfffbce3dddcab10f9164dae19"
+      "bytes": 418219,
+      "sha256": "85886322e8a890beb53ccda9f40d163554dae727f3add07841c27294b6d5b153"
     },
     {
       "path": "png/zh/Figure_06.png",
-      "bytes": 329413,
-      "sha256": "3553eac8bb5fbafc8a25b0e165fcf37662408c5fd3805f1da35c8a80d6cb32d4"
+      "bytes": 432693,
+      "sha256": "0194cb5e483b9f319bfe92065fe97c15df5ac9b74e6dd9e41b3b39441f65c4e1"
     },
     {
       "path": "png/zh/Figure_07.png",
-      "bytes": 399512,
-      "sha256": "b7105fc774bb4b47d35c0ab3c87791e6c7342be262978f6cff975514f6cad96b"
+      "bytes": 627737,
+      "sha256": "aafa24dd4d9f7f3f037134386c5b92d27eff93d3a834ec7cb578bfe015f0841c"
     },
     {
       "path": "README.md",
-      "bytes": 6259,
-      "sha256": "bb8177c4d263b9e0c8292458f3395a32d6d572866028b2099c009d3752141ba0"
+      "bytes": 3058,
+      "sha256": "c2dd8b607251914c90a9a7493f6ce9fdff09b67e74a527ebac13b810ad73a70e"
     },
     {
       "path": "rebuild.py",
-      "bytes": 4945,
-      "sha256": "588dac4731235efbae7810bb4aa0a5a87562e9a9f2670423be082015e5d8d1fc"
-    },
-    {
-      "path": "render_native.mjs",
-      "bytes": 3263,
-      "sha256": "66032514a254728cd420095dd558a5848039cac2e0163322d9f6a5e137f6b154"
+      "bytes": 3460,
+      "sha256": "fadcfb4055a31c3d851e739880777a53fbdb04038a326122246775f0e4e8be01"
     },
     {
       "path": "requirements.txt",
-      "bytes": 11,
-      "sha256": "53233e8dfbed17a27fb6404f34b68fe2a8d00d68c743c4e6f4ac073b2833bab2"
+      "bytes": 43,
+      "sha256": "50233543ef68b9b44431436695786486f2484e275c59aa9a76f7a0c457940732"
     },
     {
-      "path": "source/figure_01.py",
-      "bytes": 11813,
-      "sha256": "38d7611680724c0b9bf34e5fdacb2c0509e62e1a8c4846f1c3d68ad7215e6568"
+      "path": "source/__init__.py",
+      "bytes": 62,
+      "sha256": "817ecc8a18f8dabbac6b768e458c885373616e7b558074e80e2f320af89c925b"
+    },
+    {
+      "path": "source/figures.py",
+      "bytes": 28294,
+      "sha256": "3e1aebdcc2e456b7c5047465f1913f658991f4c9e345cb5238a61aae7f2da246"
     },
     {
       "path": "verify.py",
