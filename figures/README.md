@@ -1,8 +1,8 @@
 # Manuscript figures
 
 Seven English and seven Chinese figures are supplied in png/en/ and png/zh/.
-captions.json contains their captions. manifest.json is the single file-size
-and SHA256 index for the sources, aggregate input and reference PNGs.
+captions.json contains their captions. The package also includes drawing code
+and aggregate plotting values. Download the complete [figure ZIP](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/download/v1.0.0/jubenwei-instructions-figures-v1.0.0.zip) from release v1.0.0.
 
 ## Rebuild
 
@@ -48,7 +48,7 @@ beyond the canvas stop the build.
 
     python verify.py
 
-This checks package hashes, fourteen reference images, task totals, task order,
+This uses manifest.json to check package integrity, fourteen reference images, task totals, task order,
 quantile ordering, annotation counts and evaluation denominators.
 Edit labels and layout in source/figures.py, and numerical inputs in
 data/figure_data.json. Rebuild to a separate output directory and inspect

@@ -2,12 +2,12 @@ cff-version: 1.2.0
 message: "Please cite this software using the metadata below."
 type: software
 title: "Jubenwei Instructions code and figures for Chinese grammar teaching"
-version: 1.2.0
-url: "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.2.0"
+version: 1.0.0
+url: "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.0.0"
 abstract: >-
   Code and editable figure sources accompanying the manuscript
   From human parsing to instruction tuning: a Chinese grammar teaching dataset for second language acquisition.
-  The instruction dataset is cited separately under its registered Zenodo title and DOI.
+  Includes data construction, model evaluation and bilingual manuscript figures.
 authors:
   - family-names: "Yang"
     given-names: "Xinyu"
@@ -33,7 +33,7 @@ authors:
 repository-code: "https://github.com/Mysterious-eyes/jubenwei-instructions"
 references:
   - type: data
-    title: "From Human Parsing to Instruction Tuning: A Dataset for Chinese Grammar Teaching in Second Language Acquisition"
+    title: "From Human Parsing to Instruction Tuning: A Chinese Grammar Teaching Dataset for Second Language Acquisition"
     authors:
       - family-names: Yang
         given-names: Xinyu

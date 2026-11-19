@@ -93,8 +93,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3058,
-      "sha256": "c2dd8b607251914c90a9a7493f6ce9fdff09b67e74a527ebac13b810ad73a70e"
+      "bytes": 3224,
+      "sha256": "63ea0018e155c15603ca240cc5b8765bb715caffa403d14501fb24f934691a45"
     },
     {
       "path": "rebuild.py",

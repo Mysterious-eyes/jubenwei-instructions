@@ -1,12 +1,12 @@
 # Build the instruction dataset
 
-The workflow constructs the full 15-task collection and the training set used in the study. By default, `select_training_data.py` excludes **every source record whose whole-sentence text matches a test sentence after whitespace removal**, regenerates tasks from all remaining records, and samples auxiliary tasks. Punctuation and case are preserved. XML differences do not prevent exclusion; duplicates within the retained training sources and sentences that share only a clause are kept.
+The workflow constructs the full 15-task collection and the training set used in the study. `select_training_data.py` excludes **every source record whose whole-sentence text matches a test sentence after whitespace removal**, regenerates tasks from all remaining records, and samples auxiliary tasks. Punctuation and case are preserved. XML differences do not prevent exclusion; duplicates within the retained training sources and sentences that share only a clause are kept.
 
 Use Python 3.10 or later. All construction scripts use the standard library. Run the examples from `jubenwei_instructions/`, the resource directory inside the repository. Relative data paths are resolved against this directory.
 
 The input is the 27 source XML files described on the [LDC2025T06 page](https://catalog.ldc.upenn.edu/LDC2025T06). Place them in `source_annotations/`. The repository's `evaluation/reference_selection.json` records the source filenames, sentence positions, and hashes used for the fixed reference. See the [main README](../../../README.md) for data access and repository layout.
 
-The precomputed full collection is also available as [data-v1.0.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/data-v1.0.0). That ZIP contains the 15 task files; the steps below reconstruct the full collection, fixed reference, and training set from the source XML.
+The precomputed full collection is also available in [release v1.0.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/download/v1.0.0/jubenwei-instructions-data-v1.0.0.zip). That ZIP contains the 15 task files; the steps below reconstruct the full collection, fixed reference, and training set from the source XML.
 
 The [Zenodo dataset](https://doi.org/10.5281/zenodo.24343396) also provides the 5,016 whole-sentence XML targets. To reconstruct the exact test reference and training set directly from the published ZIP, run from the resource directory:
 
@@ -47,9 +47,9 @@ Use this separate entry point when designing a new split:
 python -B code/build_dataset/sample_test_records.py --seed 42 --output-dir reproduced/new_test_sample
 ```
 
-This follows the grouping and sampling rule in the original `get_data_book.py`: filenames ending in `-<digits>.xml` belong to the same prefix group; each larger group contributes `--per-group 200` sentence records sampled without replacement, and a group with at most 200 records is retained in full. For the supplied corpus, the six groups each contribute 200 records, totaling 1,200. Sampling acts on raw `ju` occurrences before XML normalization and retains the draw order within each group.
+The grouping and sampling rule is: filenames ending in `-<digits>.xml` belong to the same prefix group; each larger group contributes `--per-group 200` sentence records sampled without replacement, and a group with at most 200 records is retained in full. For the supplied corpus, the six groups each contribute 200 records, totaling 1,200. Sampling acts on raw `ju` occurrences before XML normalization and retains the draw order within each group.
 
-The portable entry point sorts groups and filenames and accepts an optional `--seed`. Repeating a seed with the same source files and Python environment reproduces the new sample; omitting it draws a fresh sample. The original script did not specify a seed, so this command does not recover the paper's particular test set. Use `rebuild_test_reference.py` above for that set.
+The entry point sorts groups and filenames and accepts an optional `--seed`. Repeating a seed with the same source files and Python environment reproduces the new sample; omitting it draws a fresh sample. This creates a new sample rather than recovering the paper's fixed test set. Use `rebuild_test_reference.py` above for that set.
 
 The new output directory contains:
 
@@ -84,9 +84,9 @@ python -B code/build_dataset/select_training_data.py --source reproduced/preproc
 
 Output: `reproduced/training_instance/`. The study settings use `--per-task 1000` and `--seed 0`.
 
-The fixed 1,200-record reference contains 1,100 distinct whole-sentence texts after whitespace removal. The current rule excludes all 1,381 matching records from the 5,016 source records, leaving 3,635 training sources in their original order. The reference remains a 1,200-record collection; it is not deduplicated. Only membership of the normalized whole-sentence text is used for exclusion. Other repeated training sentences and shared clauses are retained.
+The fixed 1,200-record reference contains 1,100 distinct whole-sentence texts after whitespace removal. The study rule excludes all 1,381 matching records from the 5,016 source records, leaving 3,635 training sources in their original order. The reference remains a 1,200-record collection; it is not deduplicated. Only membership of the normalized whole-sentence text is used for exclusion. Other repeated training sentences and shared clauses are retained.
 
-Tasks are regenerated from the 3,635 retained records, including controlled XML perturbations. The 12 corpus-derived auxiliary files are processed in sorted filename order and contribute 1,000 examples each. The two static dictionary files are retained in full. These 15,742 examples follow the author-confirmed training construction procedure.
+Tasks are regenerated from the 3,635 retained records, including controlled XML perturbations. The 12 corpus-derived auxiliary files are processed in sorted filename order and contribute 1,000 examples each. The two static dictionary files are retained in full. Together the four files contain the 15,742 examples used for training.
 
 | Training input | Records |
 |---|---:|
@@ -108,7 +108,7 @@ python -B code/build_dataset/select_training_data.py --source reproduced/preproc
 
 `--source`, `--reference` (also accepted as `--test`), `--per-task`, and `--seed` allow reuse with another input collection or task quota. Add `--dry-run` to `select_training_data.py` to inspect its paths and settings without creating output.
 
-Reports record input/output hashes, task counts, selected and excluded source indices, the named selection policy, and whole-sentence and shared-clause diagnostics. For the current policy, the conservation check is **3,635 retained + 1,381 excluded = 5,016 source records**. It is not a sum of retained records and the 1,200 test occurrences. The retained whole-sentence/test-text intersection must be empty; the shared-clause diagnostic is not used to remove records.
+Reports record input/output hashes, task counts, selected and excluded source indices, the named selection policy, and whole-sentence and shared-clause diagnostics. The conservation check is **3,635 retained + 1,381 excluded = 5,016 source records**. It is not a sum of retained records and the 1,200 test occurrences. The retained whole-sentence/test-text intersection must be empty; the shared-clause diagnostic is not used to remove records.
 
 Check an independently constructed training directory without requiring a complete study archive:
 
@@ -118,26 +118,10 @@ python -B code/verify_release.py --training-dir reproduced/training_instance --s
 
 Use the source/reference paths from the construction command if you followed the XML preprocessing route instead. If the complete task files have also been extracted, add `--symbol-dir sft_tasks` to compare the two dictionary files with that independent copy. Training-only verification checks its report, source indices, exclusion rule, all four training inputs and recorded hashes. It is reported separately from complete-archive manifest verification.
 
-## Historical reconstruction and archive verification
-
-The `validation-v1.0.0` Git tag preserves the earlier code and validation archive. That code used record-multiplicity subtraction: one test record removed one source occurrence with matching whitespace-normalized text and canonicalized XML. The resulting 3,816-source/15,923-example reconstruction is a historical snapshot, not the current author-confirmed training construction. Existing provenance and reproduction-check files retain their historical checks.
-
-The former rule remains explicitly available when checking those older construction artifacts:
-
-```sh
-python -B code/build_dataset/select_training_data.py --source reproduced/public_reference/sentence_xml_pairs.json --reference reproduced/public_reference/reference.json --selection-policy subtract_test_records_by_multiplicity --output-dir reproduced/legacy_record_subtraction
-```
-
-`verify_release.py` selects the validation rule from the archive's `split_report.json`; it rejects missing or unknown policies rather than guessing from the row count. Complete-archive checks still verify every manifest checksum, normalized/source correspondence, full-task schema, training inputs and saved-prediction order:
-
-```sh
-python -B code/verify_release.py --root /path/to/complete/study_archive
-```
-
-These operations do not alter historical tags, datasets or saved model outputs. Neither policy runs model training or inference.
-
-Run the selection and report-version regression checks with:
+## Regression checks
 
 ```sh
 python -B -m unittest discover -s code/build_dataset -p test_selection_rules.py
 ```
+
+The checks exercise sentence matching, annotation-independent exclusion, retained duplicates, shared clauses and report consistency. Construction and verification run offline and do not train or query a model.

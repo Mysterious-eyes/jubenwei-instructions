@@ -72,8 +72,7 @@
     "records": 15742,
     "hardware": "NVIDIA GeForce RTX 5090, 32 GB",
     "source_records": 3635,
-    "selection_policy": "exclude_all_matching_test_sentences",
-    "source_split_release": "v1.1.0"
+    "selection_policy": "exclude_all_matching_test_sentences"
   },
   "evaluation_prompt": {
     "system_prompt_file": "code/inference/qwen3_shared_system_prompt.txt",
@@ -88,14 +87,11 @@
       "qwen3_sft_thinking_on"
     ],
     "user_request_template": "给出句子“{sentence}”的句本位标注结果。",
-    "protocol_source": "Experimenter-confirmed shared system prompt for all six original evaluation conditions",
-    "client_alignment_release": "v1.1.1"
+    "protocol_source": "Experimenter-confirmed shared system prompt for all six original evaluation conditions"
   },
-  "resource_versions": {
-    "code": "v1.2.0",
-    "training_construction": "v1.1.0",
-    "instruction_dataset_doi": "10.5281/zenodo.24343396",
-    "model_outputs": "validation-v1.0.0",
-    "figure_package": "v1.2.0"
+  "release": {
+    "version": "1.0.0",
+    "url": "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.0.0",
+    "instruction_dataset_doi": "10.5281/zenodo.24343396"
   }
 }

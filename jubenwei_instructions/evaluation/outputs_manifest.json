@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "archive": "model-outputs-v1.0.0.zip",
-  "release_url": "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0",
+  "release_url": "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.0.0",
   "bytes": 598758,
   "sha256": "10985ea3dbd68f0d366bdbc8de58f47868a4e9e22f3e187f985e725e321ede2a",
   "reference_sha256": "9a671859503bb5b287513da4d0d1009b902d61b4054bdbe3ed7ea28135614abc",
