@@ -23,6 +23,8 @@ The 14 PNG files provide the reference figures for this package. They can be use
 
 The fixed input is limited to aggregate task counts, output-length quantiles, annotation-label frequencies, and metrics for six model conditions.
 
+Figure 2 distinguishes recorded annotation judgments, reference structures and template-derived targets. The paired tasks are A3/A6 and A4/A11; the two glossary tasks enter training independently. Figure 4 separates public access points from the local reconstruction route using the released main-task file and saved reference-selection index. Figures 3 and 5 follow A1–A14 and M0; all instruction counts use examples as the unit.
+
 Training construction keeps the fixed 1,200 test records, representing 1,100 distinct whole-sentence texts after removing whitespace. All 1,381 source records with matching sentence text are excluded from the 5,016-record source collection, leaving 3,635 records. Records sharing only a clause with the test set are retained. Regeneration and sampling combine 3,635 main-task examples, 12,000 auxiliary examples and 107 symbol examples, totaling 15,742. Figures 1, 3 and 4 reflect this rule; the full 392,871-example collection and the six saved model evaluations remain unchanged.
 
 ## Verify the files

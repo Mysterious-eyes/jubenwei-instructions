@@ -35,11 +35,12 @@ def response(content, finish='stop', **extra):
 
 
 class OfflineTests(unittest.TestCase):
-    def invoke(self, directory, responses, thinking='on', output='result.txt'):
+    def invoke(self, directory, responses, thinking='on', output='result.txt', system_prompt='共享系统规则'):
         directory = Path(directory).resolve()
         self.assertTrue(directory.is_relative_to(runner.BASE))
         (directory / 'input.txt').write_text('我买书\n我买书\n', encoding='utf-8')
-        (directory / 'prompt.txt').write_text('共享系统规则', encoding='utf-8')
+        if system_prompt is not None:
+            (directory / 'prompt.txt').write_text(system_prompt, encoding='utf-8')
         calls = []
         pending = iter(responses)
 
@@ -65,11 +66,21 @@ class OfflineTests(unittest.TestCase):
         sdk.OpenAI, sdk.APIError = Client, FakeAPIError
         progress = ModuleType('tqdm')
         progress.tqdm = lambda items, **kwargs: items
-        args = ['--input', str(directory / 'input.txt'), '--system-prompt', str(directory / 'prompt.txt'),
-                '--output', str(directory / output), '--limit', '2', '--thinking', thinking]
+        args = ['--input', str(directory / 'input.txt'), '--output', str(directory / output),
+                '--limit', '2', '--thinking', thinking]
+        if system_prompt is not None:
+            args += ['--system-prompt', str(directory / 'prompt.txt')]
         with patch.dict(os.environ, {'VLLM_BASE_URL': 'http://offline.invalid/v1', 'VLLM_API_KEY': 'offline-test-placeholder'}), patch.dict(sys.modules, {'openai': sdk, 'tqdm': progress}), contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             code = runner.main(args)
         return code, calls
+
+    def test_default_shared_prompt_is_sent_unchanged(self):
+        expected = runner25.DEFAULT_SYSTEM_PROMPT.read_text(encoding='utf-8-sig').strip()
+        for thinking in ['on', 'off']:
+            with self.subTest(thinking=thinking), tempfile.TemporaryDirectory(dir=runner.BASE, prefix='.offline_') as temp:
+                code, calls = self.invoke(temp, [response(XML), response(XML)], thinking, system_prompt=None)
+                self.assertEqual(code, 0)
+                self.assertEqual(calls[0]['messages'][0], {'role': 'system', 'content': expected})
 
     def test_system_prompt_switch_and_all_returned_records_preserved(self):
         for thinking in ['on', 'off']:
@@ -146,9 +157,28 @@ class Qwen25OfflineTests(unittest.TestCase):
                 self.assertEqual(runner25.main(args), 0)
                 with self.assertRaises(SystemExit): runner25.main(args)
             self.assertEqual(calls[0]['model'], 'custom-model')
-            self.assertEqual(len(calls[0]['messages']), 1)
+            self.assertEqual(calls[0]['messages'], [
+                {'role': 'system', 'content': runner25.DEFAULT_SYSTEM_PROMPT.read_text(encoding='utf-8-sig').strip()},
+                {'role': 'user', 'content': '给出句子“我买书”的句本位标注结果。'},
+            ])
+            self.assertEqual((calls[0]['temperature'], calls[0]['top_p'], calls[0]['max_tokens']), (0.0, 1.0, 3072))
             self.assertEqual(output.read_text(encoding='utf-8').count('Instruction:'), 1)
             self.assertIn('Output:' + XML, output.read_text(encoding='utf-8'))
+
+    def test_empty_prompt_and_prompt_output_collision_are_rejected(self):
+        with tempfile.TemporaryDirectory(dir=runner.BASE, prefix='.offline_') as temp:
+            directory = Path(temp).resolve()
+            self.assertTrue(directory.is_relative_to(runner.BASE))
+            source = directory / 'input.txt'; source.write_text('我买书', encoding='utf-8')
+            prompt = directory / 'prompt.txt'; prompt.write_text('  \n', encoding='utf-8')
+            args = ['--input', str(source), '--system-prompt', str(prompt), '--output', str(directory / 'result.txt')]
+            with patch.dict(os.environ, {'VLLM_BASE_URL': 'http://offline.invalid/v1', 'VLLM_API_KEY': 'offline-test-placeholder'}), contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit): runner25.main(args)
+                self.assertFalse((directory / 'result.txt').exists())
+                prompt.write_text('keep', encoding='utf-8')
+                args = ['--input', str(source), '--system-prompt', str(prompt), '--output', str(prompt), '--overwrite']
+                with self.assertRaises(SystemExit): runner25.main(args)
+                self.assertEqual(prompt.read_text(encoding='utf-8'), 'keep')
 
 if __name__ == '__main__':
     unittest.main()

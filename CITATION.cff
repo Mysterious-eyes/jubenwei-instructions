@@ -2,7 +2,8 @@ cff-version: 1.2.0
 message: "Please cite this software using the metadata below."
 type: software
 title: "Jubenwei Instructions code for Chinese grammar teaching"
-version: 1.1.0
+version: 1.1.1
+url: "https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.1"
 authors:
   - family-names: "Yang"
     given-names: "Xinyu"

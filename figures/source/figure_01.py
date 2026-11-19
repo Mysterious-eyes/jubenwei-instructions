@@ -21,7 +21,7 @@ P = {
 }
 
 GROUPS = [
-    ("词类目标", "Word-class targets", "91,512 × 2 = 183,024", "A3 / A6", 91512 * 2),
+    ("词性目标", "POS targets", "91,512 × 2 = 183,024", "A3 / A6", 91512 * 2),
     ("成分目标", "Constituent targets", "64,459 × 2 = 128,918", "A4 / A11", 64459 * 2),
     ("小句任务", "Clause-level tasks", "10,864 × 3 = 32,592", "A7 / A10 / A13", 10864 * 3),
     ("整句任务与XML检查", "Sentence tasks and XML checks", "5,016 × 3 + 5,001 = 20,049", "M0 / A5 / A9  +  A14", 5016 * 3 + 5001),
@@ -154,9 +154,9 @@ def make(lang):
 
     c.text(1085, 1550, "+", 90, True, align="center", color=P["muted"])
     c.card(1150, 1390, 900, 280, P["orange"], P["pale_orange"])
-    c.text(1600, 1465, "独立符号释义表" if zh else "Independent symbol tasks", 64, True, align="center", width=830)
+    c.text(1600, 1465, "符号释义表（54个标记）" if zh else "Glossary (54 labels)", 64, True, align="center", width=830)
     c.text(1600, 1557, "54 + 53 = 107", 80, True, align="center", width=840)
-    c.text(1600, 1630, "A1 / A2", 64, align="center")
+    c.text(1600, 1630, "A1 / A2 双向问答" if zh else "A1 / A2 symbol tasks", 64, align="center", width=840)
     c.line([(2070, 1530), (2160, 1530)], P["muted"], 4, True)
 
     c.card(2180, 1390, 900, 280, P["teal"], P["pale_teal"])
@@ -174,11 +174,11 @@ def make(lang):
     c.line([(830, 2270), (830, 2090), (1015, 2090)], P["blue"], 4, True)
     c.line([(830, 2270), (830, 2415), (1015, 2415)], P["teal"], 4, True)
 
-    c.card(1030, 1990, 900, 245, P["blue"], P["pale_blue"])
-    c.text(1480, 2065, "固定测试参考" if zh else "Fixed test reference", 64, True, align="center", width=830)
-    c.text(1480, 2140, "1,200条记录" if zh else "1,200 records", 72, True, align="center", width=840)
-    c.text(1480, 2205, "1,100种去空白整句" if zh else "1,100 normalized texts", 64, align="center", width=840)
-    c.line([(1480, 2235), (1480, 2305)], P["blue"], 4, True)
+    c.card(1030, 1970, 900, 285, P["blue"], P["pale_blue"])
+    c.text(1480, 2045, "固定测试参考" if zh else "Fixed test reference", 64, True, align="center", width=830)
+    c.text(1480, 2120, "1,200条记录" if zh else "1,200 records", 72, True, align="center", width=840)
+    c.text(1480, 2190, "1,100种去空白整句" if zh else "1,100 normalized texts", 64, align="center", width=840)
+    c.line([(1480, 2255), (1480, 2305)], P["blue"], 4, True)
 
     c.card(1030, 2315, 900, 200, P["teal"], P["pale_teal"])
     c.text(1480, 2390, "排除全部整句匹配" if zh else "Remove every text match", 64, True, align="center", width=830)

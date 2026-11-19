@@ -36,10 +36,14 @@ const figure = (contract, n) => contract.figures.find(f => f.number === n);
 
 export function validateStatData(contract) {
   ensure(contract.tasks.length === 15, 'Expected 15 task categories.');
+  ensure(contract.tasks.map(r => r.id).join(',') === [...Array.from({length:14},(_,i)=>'A'+(i+1)),'M0'].join(','),
+    'Tasks must follow A1-A14, then M0.');
   ensure(sum(contract.tasks.map(r => r.full_n)) === 392871, 'Full-resource count changed.');
   ensure(sum(contract.tasks.map(r => r.training_n)) === 15742, 'Training count changed.');
   const f5 = figure(contract, 5), f6 = figure(contract, 6), f7 = figure(contract, 7);
   ensure(f5.panels[0].rows.length === 15, 'Expected 15 quantile rows.');
+  ensure(f5.panels[0].rows.map(r=>r.stem).join(',') === contract.tasks.map(r=>r.stem).join(','),
+    'Figures 3 and 5 must use the same task order.');
   for (const row of f5.panels[0].rows) {
     ensure(row.p10 > 0 && row.p10 <= row.p25 && row.p25 <= row.median && row.median <= row.p75 && row.p75 <= row.p90,
       `Invalid quantile ordering: ${row.stem}`);
@@ -201,8 +205,8 @@ function addFigure3(ctx, contract) {
   horizontalChart(ctx, { left: 1060, top: 160, width: 492, height: 890 }, tasks.map(r => r.id),
     [{ name: choose(lang, 'Training', '训练'), values: tasks.map(r => r.training_n), fill: p.teal }],
     { min: 0, max: 4600, majorUnit: 2000, showCategories: true, gapWidth: 45 });
-  txt('f3-log-label', choose(lang, 'Records (log scale)', '样本数（对数尺度）'), 480, 1120, 530, 48, { align: 'center' });
-  txt('f3-linear-label', choose(lang, 'Records (linear scale)', '样本数（线性尺度）'), 1060, 1120, 492, 48, { align: 'center' });
+  txt('f3-log-label', choose(lang, 'Examples (log scale)', '样本数（对数尺度）'), 480, 1120, 530, 48, { align: 'center' });
+  txt('f3-linear-label', choose(lang, 'Examples (linear scale)', '样本数（线性尺度）'), 1060, 1120, 492, 48, { align: 'center' });
   txt('f3-training-composition', choose(lang,
     'Training: 3,635 main + 12,000 auxiliary + 107 symbols',
     '训练集：3,635条主任务 + 12,000条辅助任务 + 107条符号样本'),
@@ -238,8 +242,10 @@ function addFigure5(ctx, contract) {
     const task = taskMap.get(row.stem);
     const main = row.stem === 'overall_1';
     const color = main ? p.orange : p.blue;
-    txt(`f5-task-${row.stem}`, task[lang === 'zh' ? 'label_zh' : 'label_en'], 60, y - 21, 425, 42,
-      { align: 'right', bold: main });
+    txt(`f5-task-id-${row.stem}`, task.id, 35, y - 21, 80, 42,
+      { align: 'left', bold: main, color: p.muted });
+    txt(`f5-task-${row.stem}`, task[lang === 'zh' ? 'label_zh' : 'label_en'], 115, y - 21, 370, 42,
+      { align: 'right', bold: main, wrap: false });
     ln(`f5-p10-p90-${row.stem}`, px(row.p10), y, px(row.p90), y, { color: p.muted, width: 2 });
     for (const q of ['p10', 'p90']) ln(`f5-${q}-${row.stem}`, px(row[q]), y - 8, px(row[q]), y + 8,
       { color: p.muted, width: 2 });
@@ -258,7 +264,7 @@ function addFigure5(ctx, contract) {
     position: { left: 220, top: 990, width: 1240, height: 340 },
     categories: formats.map(r => r[lang === 'zh' ? 'label_zh' : 'label_en']),
     series: [{
-      name: choose(lang, 'Records', '样本数'),
+      name: choose(lang, 'Examples', '样本数'),
       values: formats.map(r => r.count),
       fill: p.teal,
       line: { style: 'solid', fill: 'none', width: 0 },
@@ -280,7 +286,7 @@ function addFigure5(ctx, contract) {
     dataLabels: { showValue: true, position: 'outEnd', numberFormatCode: '#,##0',
       textStyle: { typeface: font, fontSize: fs, fill: p.ink } },
   });
-  txt('f5-b-unit', choose(lang, 'Records', '样本数'), 60, 1090, 150, 46, { color: p.muted });
+  txt('f5-b-unit', choose(lang, 'Examples', '样本数'), 60, 1090, 150, 46, { color: p.muted });
 }
 
 function addFigure6(ctx, contract) {

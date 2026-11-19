@@ -1,6 +1,6 @@
 # Model inference clients
 
-`qwen25_client.py` sends sentence-annotation requests to a Qwen2.5 service. `qwen3_client.py` adds the shared system prompt and supports Qwen3's thinking switch. Both use an OpenAI-compatible endpoint and accept `--model` to select the served model.
+`qwen25_client.py` and `qwen3_client.py` both send the same shared system prompt followed by the sentence-annotation request. Qwen3 additionally supports its thinking switch. Both use an OpenAI-compatible endpoint and accept `--model` to select the served model.
 
 Run commands from `jubenwei_instructions/`, the resource directory inside the repository. The model checkpoint and server are supplied by the user; training configurations are in `configs/`.
 
@@ -12,7 +12,9 @@ Install the client dependencies:
 python -m pip install -r code/inference/requirements.txt
 ```
 
-Provide a UTF-8 text file with one sentence per line through `--input`. The instruction-data ZIP contains task examples rather than the separate 1,200-sentence evaluation input; the fixed reference can be recovered using the [construction workflow](../build_dataset/README.md). The Qwen3 client reads `qwen3_shared_system_prompt.txt` from this directory by default. The `../sps_converter/` module converts final XML into the linear representation used for scoring.
+Provide a UTF-8 text file with one sentence per line through `--input`. The instruction-data ZIP contains task examples rather than the separate 1,200-sentence evaluation input; the fixed reference can be recovered using the [construction workflow](../build_dataset/README.md). Both clients read `qwen3_shared_system_prompt.txt` from this directory by default. Its filename is retained for compatibility; its content is shared by both model families. Use `--system-prompt /path/to/prompt.txt` to select an explicit alternate file. Empty or unreadable prompt files are rejected before inference. The `../sps_converter/` module converts final XML into the linear representation used for scoring.
+
+The shared file contains the SPS conventions and two complete annotated sentence examples: “勤劳的工人买了材料。” and “下雪了。”. Its SHA256 is `7c9ff345310ef6cf7dfaf4ab6fc1f6ce8304809512900d7a543e77f7c55e7322`. The experimenter confirmed that both model families used this prompt for the reported conditions. The client update implements that confirmed setup; it does not rerun or alter archived results. Numerical client defaults are not a substitute for historical execution logs.
 
 Set `VLLM_BASE_URL` to the endpoint and `VLLM_API_KEY` to its key. For a service without authentication, set an explicit placeholder key. `--base-url` can override the endpoint; the API key is read from the environment.
 
@@ -26,7 +28,7 @@ python -B code/inference/qwen3_client.py --input /path/to/sentences.txt --model 
 
 Choose a distinct `--output` for each condition. The default location is `reproduced/inference/`. Existing files require an explicit `--overwrite`; `--limit` selects a small input batch. Run either client with `--help` to inspect its settings. For controlled comparisons, set the prompt, model, and request options for each condition explicitly.
 
-The Qwen2.5 client sends a user message containing the annotation request. Qwen3 sends the shared system prompt plus the user message and passes `enable_thinking` in the request.
+Both clients send a `system` message containing the shared file and a `user` message containing the annotation request. Qwen3 also passes `enable_thinking` in the request. Both read the prompt as UTF-8 (accepting a BOM), normalize line endings through text-file reading, and strip only outer whitespace. The test case's reference XML is not sent; the shared prompt's two demonstration annotations are part of the system message.
 
 ## Outputs
 

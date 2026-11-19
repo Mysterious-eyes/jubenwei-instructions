@@ -8,6 +8,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_SYSTEM_PROMPT = BASE_DIR / "qwen3_shared_system_prompt.txt"
 RELEASE = BASE_DIR.parents[1]
 sys.path.insert(0, str(BASE_DIR.parent))
 
@@ -63,6 +64,7 @@ def write_record(handle, instruction, reasoning, output, expression):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=BASE_DIR / "sentences.txt")
+    parser.add_argument("--system-prompt", type=Path, default=DEFAULT_SYSTEM_PROMPT)
     parser.add_argument("--output", type=Path, default=RELEASE / "reproduced" / "inference" / "qwen25_results.txt")
     parser.add_argument("--base-url", default=os.getenv("VLLM_BASE_URL"))
     parser.add_argument("--model", default="qwen25-ft")
@@ -74,10 +76,17 @@ def main(argv=None):
         parser.error("Set VLLM_BASE_URL and VLLM_API_KEY for your model service; use an explicit placeholder key only if your service is unauthenticated.")
     if args.max_tokens < 1 or (args.limit is not None and args.limit < 1):
         parser.error("--max-tokens 和 --limit 必须是正整数")
-    if args.input.resolve() == args.output.resolve():
-        parser.error("输出文件不能与输入文件相同")
+    if args.output.resolve() in {args.input.resolve(), args.system_prompt.resolve()}:
+        parser.error("输出文件不能与输入或系统提示词文件相同")
     if args.output.exists() and not args.overwrite:
         parser.error(f"结果文件已存在：{args.output}。请换 --output，或明确使用 --overwrite。")
+
+    try:
+        system_prompt = args.system_prompt.read_text(encoding="utf-8-sig").strip()
+    except OSError as exc:
+        parser.error(f"读取系统提示词失败：{exc}")
+    if not system_prompt:
+        parser.error("系统提示词不能为空")
 
     try:
         from openai import APIError, OpenAI
@@ -124,7 +133,8 @@ def main(argv=None):
                     try:
                         result = client.chat.completions.create(
                             model=args.model,
-                            messages=[{"role": "user", "content": instruction}],
+                            messages=[{"role": "system", "content": system_prompt},
+                                      {"role": "user", "content": instruction}],
                             temperature=0.0,
                             top_p=1.0,
                             max_tokens=args.max_tokens,

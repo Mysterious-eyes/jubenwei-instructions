@@ -18,6 +18,7 @@ def main():
     data = json.loads((ROOT / 'data' / 'figure_data.json').read_text(encoding='utf-8-sig'))
     tasks = data['tasks']
     assert len(tasks) == 15
+    assert [r['id'] for r in tasks] == [f'A{i}' for i in range(1, 15)] + ['M0']
     counts = data['counts']
     assert counts['test_records'] == 1200
     assert counts['test_unique_whitespace_normalized_texts'] == 1100
@@ -27,6 +28,7 @@ def main():
     assert sum(r['full_n'] for r in tasks) == 392871
     assert sum(r['training_n'] for r in tasks) == 15742
     figs = {r['number']: r for r in data['figures']}
+    assert [r['stem'] for r in figs[5]['panels'][0]['rows']] == [r['stem'] for r in tasks]
     for row in figs[5]['panels'][0]['rows']:
         values = [row[k] for k in ['p10', 'p25', 'median', 'p75', 'p90']]
         assert values[0] > 0 and values == sorted(values), row['stem']

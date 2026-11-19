@@ -65,7 +65,7 @@
     {
       "id": "A7",
       "stem": "dongtaici_1",
-      "label_en": "Dynamic word detection",
+      "label_en": "Dynamic-word identification",
       "label_zh": "动态词识别",
       "full_n": 10864,
       "training_n": 1000
@@ -79,14 +79,6 @@
       "training_n": 1000
     },
     {
-      "id": "A11",
-      "stem": "learn_grammar_2",
-      "label_en": "Constituent prediction",
-      "label_zh": "句法成分",
-      "full_n": 64459,
-      "training_n": 1000
-    },
-    {
       "id": "A9",
       "stem": "xiaoju_1",
       "label_en": "Clause segmentation",
@@ -97,9 +89,17 @@
     {
       "id": "A10",
       "stem": "single_core_1",
-      "label_en": "Single-core structure",
-      "label_zh": "单核结构",
+      "label_en": "Single-core extraction",
+      "label_zh": "单核结构提取",
       "full_n": 10864,
+      "training_n": 1000
+    },
+    {
+      "id": "A11",
+      "stem": "learn_grammar_2",
+      "label_en": "Constituent prediction",
+      "label_zh": "句法成分",
+      "full_n": 64459,
       "training_n": 1000
     },
     {
@@ -113,8 +113,8 @@
     {
       "id": "A13",
       "stem": "fuzaju_1",
-      "label_en": "Complex constructions",
-      "label_zh": "复杂句式",
+      "label_en": "Structural relations",
+      "label_zh": "小句内结构关系",
       "full_n": 10864,
       "training_n": 1000
     },
@@ -129,7 +129,7 @@
     {
       "id": "M0",
       "stem": "overall_1",
-      "label_en": "Full annotation (main)",
+      "label_en": "Whole-sentence annotation",
       "label_zh": "整句标注（主任务）",
       "full_n": 5016,
       "training_n": 3635
@@ -239,16 +239,6 @@
               "median_display": "188"
             },
             {
-              "stem": "learn_grammar_2",
-              "n": 64459,
-              "p10": 22.0,
-              "p25": 22.0,
-              "median": 23.0,
-              "p75": 25.0,
-              "p90": 28.0,
-              "median_display": "23"
-            },
-            {
               "stem": "xiaoju_1",
               "n": 5016,
               "p10": 129.0,
@@ -267,6 +257,16 @@
               "p75": 30.0,
               "p90": 39.0,
               "median_display": "25"
+            },
+            {
+              "stem": "learn_grammar_2",
+              "n": 64459,
+              "p10": 22.0,
+              "p25": 22.0,
+              "median": 23.0,
+              "p75": 25.0,
+              "p90": 28.0,
+              "median_display": "23"
             },
             {
               "stem": "weiciyu_1",
@@ -316,8 +316,8 @@
           "id": "b",
           "rows": [
             {
-              "label_en": "Stepwise explanation",
-              "label_zh": "带分步解释",
+              "label_en": "Explanations",
+              "label_zh": "含说明",
               "count": 210049,
               "display_percent": "53.47"
             },
@@ -986,8 +986,8 @@
         {
           "id": "f",
           "metric": "all_input_structure_percent",
-          "title_en": "All-record structure match",
-          "title_zh": "全量结构匹配率",
+          "title_en": "Structural match, all inputs",
+          "title_zh": "全量输入结构匹配",
           "denominator": 1200,
           "groups": [
             {

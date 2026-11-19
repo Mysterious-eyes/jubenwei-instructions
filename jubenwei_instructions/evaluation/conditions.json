@@ -74,5 +74,27 @@
     "source_records": 3635,
     "selection_policy": "exclude_all_matching_test_sentences",
     "source_split_release": "v1.1.0"
+  },
+  "evaluation_prompt": {
+    "system_prompt_file": "code/inference/qwen3_shared_system_prompt.txt",
+    "system_prompt_sha256": "7c9ff345310ef6cf7dfaf4ab6fc1f6ce8304809512900d7a543e77f7c55e7322",
+    "annotated_sentence_examples": 2,
+    "applies_to_conditions": [
+      "qwen25_unadapted",
+      "qwen25_sft",
+      "qwen3_unadapted_thinking_off",
+      "qwen3_unadapted_thinking_on",
+      "qwen3_sft_thinking_off",
+      "qwen3_sft_thinking_on"
+    ],
+    "user_request_template": "给出句子“{sentence}”的句本位标注结果。",
+    "protocol_source": "Experimenter-confirmed shared system prompt for all six original evaluation conditions",
+    "client_alignment_release": "v1.1.1"
+  },
+  "resource_versions": {
+    "code": "v1.1.1",
+    "training_construction": "v1.1.0",
+    "instruction_dataset_doi": "10.5281/zenodo.24343396",
+    "model_outputs": "validation-v1.0.0"
   }
 }
