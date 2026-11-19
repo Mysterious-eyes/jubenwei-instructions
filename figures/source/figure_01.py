@@ -31,8 +31,9 @@ GROUPS = [
 assert sum(g[4] for g in GROUPS) == 392764
 assert 54 + 53 == 107
 assert 392764 + 107 == 392871
-assert 5016 - 6 * 200 == 3816
-assert 3816 + 12 * 1000 + 107 == 15923
+assert 6 * 200 == 1200
+assert 5016 - 1381 == 3635
+assert 3635 + 12 * 1000 + 107 == 15742
 
 
 def font_path(lang, bold):
@@ -173,19 +174,21 @@ def make(lang):
     c.line([(830, 2270), (830, 2090), (1015, 2090)], P["blue"], 4, True)
     c.line([(830, 2270), (830, 2415), (1015, 2415)], P["teal"], 4, True)
 
-    c.card(1030, 1990, 900, 200, P["blue"], P["pale_blue"])
-    c.text(1480, 2065, "先抽取固定测试参考" if zh else "Fix the test sample first", 64, True, align="center", width=830)
-    c.text(1480, 2150, "6组 × 200 = 1,200" if zh else "6 groups × 200 = 1,200", 72, True, align="center", width=840)
+    c.card(1030, 1990, 900, 245, P["blue"], P["pale_blue"])
+    c.text(1480, 2065, "固定测试参考" if zh else "Fixed test reference", 64, True, align="center", width=830)
+    c.text(1480, 2140, "1,200条记录" if zh else "1,200 records", 72, True, align="center", width=840)
+    c.text(1480, 2205, "1,100种去空白整句" if zh else "1,100 normalized texts", 64, align="center", width=840)
+    c.line([(1480, 2235), (1480, 2305)], P["blue"], 4, True)
 
     c.card(1030, 2315, 900, 200, P["teal"], P["pale_teal"])
-    c.text(1480, 2390, "剩余训练来源" if zh else "Remaining source records", 64, True, align="center", width=830)
-    c.text(1480, 2485, "3,816", 96, True, align="center")
+    c.text(1480, 2390, "排除全部整句匹配" if zh else "Remove every text match", 64, True, align="center", width=830)
+    c.text(1480, 2485, "5,016 − 1,381 = 3,635", 72, True, align="center", width=840)
     c.line([(1930, 2415), (2090, 2415)], P["teal"], 4, True)
 
     c.card(2110, 2315, 970, 280, P["teal"], P["pale_teal"])
     c.text(2595, 2390, "重新生成任务并采样" if zh else "Regenerate and sample", 64, True, align="center", width=900)
-    c.text(2595, 2475, "3,816 + 12 × 1,000 + 107", 64, align="center", width=900)
-    c.text(2595, 2560, "15,923条训练样本" if zh else "15,923 training examples", 74, True, align="center", width=900)
+    c.text(2595, 2475, "3,635 + 12 × 1,000 + 107", 64, align="center", width=900)
+    c.text(2595, 2560, "15,742条训练样本" if zh else "15,742 training examples", 74, True, align="center", width=900)
     return c.save()
 
 
@@ -203,8 +206,8 @@ if __name__ == "__main__":
         "minimum_font_px": 64, "minimum_font_pt_at_6_in_width": 64 / W * 6 * 72,
         "corpus_groups": [dict(label_en=g[1], formula=g[2], tasks=g[3], subtotal=g[4]) for g in GROUPS],
         "corpus_derived": 392764, "symbols": 107, "full_dataset": 392871,
-        "source_records": 5016, "test_records": 1200, "remaining_records": 3816,
-        "sampled_auxiliary": 12000, "training_examples": 15923,
+        "source_records": 5016, "test_records": 1200, "remaining_records": 3635, "unique_test_texts": 1100, "excluded_source_records": 1381,
+        "sampled_auxiliary": 12000, "training_examples": 15742,
         "layout_validation": "All text stays within canvas and specified label widths.",
         "svg_text": True, "raster_embedded_in_svg": False,
         "text_objects": {k: len(v) for k, v in audits.items()},

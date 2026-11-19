@@ -8,7 +8,7 @@
     "granularity": "sentence",
     "explanation_markup_records": 5016,
     "static_dictionary": false,
-    "training_instance_records": 3816
+    "training_instance_records": 3635
   },
   {
     "task_id": "A1",

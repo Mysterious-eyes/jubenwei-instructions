@@ -149,8 +149,8 @@ function diagram4(p) {
   branch('f4-normalized','normalized/',310);
   leaf('f4-normalized-pairs','sentence_xml_pairs.json  (5,016)',360,310);
   branch('f4-full','sft_tasks/',435,'15类任务 · 392,871条','15 task files · 392,871 records');
-  branch('f4-training','training_instance/',555,'4个训练JSON · 15,923条','4 training JSONs · 15,923 records');
-  leaf('f4-training-main','overall_1.json  (3,816)',655,555);
+  branch('f4-training','training_instance/',555,'4个训练JSON · 15,742条','4 training JSONs · 15,742 records');
+  leaf('f4-training-main','overall_1.json  (3,635)',655,555);
   leaf('f4-training-aux','integrated_data.json  (12,000)',707,555);
   leaf('f4-training-symbol1','learn_tag_1.json  (54)',759,555);
   leaf('f4-training-symbol2','learn_tag_2.json  (53)',811,555);
@@ -167,28 +167,29 @@ function diagram4(p) {
     1010,150,510,115,C.teal);
   node('f4-full-graph','完整任务','Full tasks','392,871条','392,871 records',
     840,355,330,120,C.teal,{bodySize:p.lang==='en'?32:34});
-  node('f4-test-graph','固定测试参考','Test reference','6×200＝1,200','6 × 200 = 1,200',
-    1210,355,330,120,C.blue,{bodySize:p.lang==='en'?32:34});
+  node('f4-test-graph','固定测试参考','Fixed reference','1,200条记录\n1,100种整句','1,200 records\n1,100 texts',
+    1210,355,330,145,C.blue,{bodySize:p.lang==='en'?32:34});
   path('f4-source-full',[[1265,265],[1265,307],[1005,307],[1005,355]]);
   path('f4-source-test',[[1265,265],[1265,307],[1375,307],[1375,355]],{color:C.blue});
   node('f4-definitions','符号释义表','Definitions','107条符号样本','107 symbol records',
     840,560,330,115,C.orange,{bodySize:p.lang==='en'?32:34});
-  node('f4-remaining','余下训练来源','Remaining','3,816条','3,816 records',
-    1210,560,330,115,C.blue);
+  node('f4-remaining','整句文本筛选','Text exclusion','排除1,381条\n保留3,635条','Exclude 1,381\nKeep 3,635',
+    1210,560,330,155,C.blue);
+  arrow('f4-reference-exclusion',1375,500,1375,560,{color:C.blue});
   path('f4-source-remaining',[[1520,207],[1570,207],[1570,520],[1375,520],[1375,560]],{color:C.blue});
   arrow('f4-definitions-full',1005,560,1005,475,{color:C.orange});
   box('f4-regenerate-frame',1210,760,330,120,{stroke:C.blue});
   text('f4-regenerate-label',choose('重新派生任务\n并采样','Regenerate tasks\nand sample'),
     1226,774,298,92,{fontSize:36,bold:true});
-  arrow('f4-remaining-regenerate',1375,675,1375,760,{color:C.blue});
+  arrow('f4-remaining-regenerate',1375,715,1375,760,{color:C.blue});
   // Static definitions remain an independent input to both collections.
   line('f4-symbols-train-a',1005,675,1005,935,{color:C.orange});
   line('f4-symbols-train-b',1005,935,1240,935,{color:C.orange});
   line('f4-tasks-train-a',1375,880,1375,935,{color:C.blue});
   line('f4-tasks-train-b',1375,935,1240,935,{color:C.blue});
   arrow('f4-merged-training',1240,935,1240,1010);
-  node('f4-train-graph','实际训练集','Training set','15,923条\ntraining_instance/',
-    '15,923 records\ntraining_instance/',900,1010,640,135,C.teal);
+  node('f4-train-graph','训练集','Training set','15,742条\ntraining_instance/',
+    '15,742 records\ntraining_instance/',900,1010,640,145,C.teal);
   sem('root','source_annotations/','directory_containment');
   sem('root','normalized/','directory_containment');
   sem('root','sft_tasks/','directory_containment');
@@ -197,11 +198,12 @@ function diagram4(p) {
   sem('source_records','full_tasks','generate_corpus_tasks');
   sem('symbol_definitions','full_tasks','independent_static_merge');
   sem('source_records','test_reference','record_allocation');
-  sem('source_records','remaining_records','record_allocation');
+  sem('source_records','remaining_records','whole_text_exclusion');
+  sem('test_reference','remaining_records','whitespace_normalized_text_match');
   sem('remaining_records','training_set','regenerate_then_sample');
   sem('symbol_definitions','training_set','independent_static_merge');
-  p.quantities={sourceRecords:5016,fullRecords:392871,testRecords:1200,
-    trainingSourceRecords:3816,trainingRecords:15923,trainingFileCounts:[3816,12000,54,53],
+  p.quantities={sourceRecords:5016,fullRecords:392871,testRecords:1200,uniqueTestTexts:1100,excludedSourceRecords:1381,
+    trainingSourceRecords:3635,trainingRecords:15742,trainingFileCounts:[3635,12000,54,53],
     predictionConditions:6,predictionsPerCondition:1200};
   p.notes=['Four training JSON files is not the total file count of training_instance/.',
     'No full-task-row sampling edge connects sft_tasks to training_instance.',

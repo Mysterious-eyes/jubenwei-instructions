@@ -37,7 +37,7 @@ const figure = (contract, n) => contract.figures.find(f => f.number === n);
 export function validateStatData(contract) {
   ensure(contract.tasks.length === 15, 'Expected 15 task categories.');
   ensure(sum(contract.tasks.map(r => r.full_n)) === 392871, 'Full-resource count changed.');
-  ensure(sum(contract.tasks.map(r => r.training_n)) === 15923, 'Training count changed.');
+  ensure(sum(contract.tasks.map(r => r.training_n)) === 15742, 'Training count changed.');
   const f5 = figure(contract, 5), f6 = figure(contract, 6), f7 = figure(contract, 7);
   ensure(f5.panels[0].rows.length === 15, 'Expected 15 quantile rows.');
   for (const row of f5.panels[0].rows) {
@@ -56,7 +56,7 @@ export function validateStatData(contract) {
     ensure(row.text_consistent + row.text_mismatch === row.valid, `Invalid text partition: ${row.id}`);
     ensure(row.metrics.f1_percent.length === 4, `Missing F1 values: ${row.id}`);
   }
-  return { figures: [3, 5, 6, 7], full: 392871, training: 15923, quantileRows: 15, modelConditions: 6 };
+  return { figures: [3, 5, 6, 7], full: 392871, training: 15742, quantileRows: 15, modelConditions: 6 };
 }
 
 function context(slide, lang, helpers) {
@@ -191,7 +191,7 @@ function addFigure3(ctx, contract) {
   heading('f3-a-title', choose(lang, 'a  Full instruction resource', 'a  完整指令资源'), 62, 35, 1000);
   heading('f3-b-title', choose(lang, 'b  Training set', 'b  训练集'), 1080, 35, 470);
   txt('f3-a-n', 'n = 392,871', 62, 98, 1000, 44, { color: p.muted });
-  txt('f3-b-n', 'n = 15,923', 1080, 98, 470, 44, { color: p.muted });
+  txt('f3-b-n', 'n = 15,742', 1080, 98, 470, 44, { color: p.muted });
   ln('f3-divider', 1040, 50, 1040, 1195, { color: p.grid, width: 1.5 });
   logarithmicBars(ctx, 'f3-a', { left: 42, top: 210, width: 988, height: 890 },
     tasks.map((r, i) => ({ key: r.stem, taskId: r.id, label: categories[i], count: r.full_n })),
@@ -204,8 +204,8 @@ function addFigure3(ctx, contract) {
   txt('f3-log-label', choose(lang, 'Records (log scale)', '样本数（对数尺度）'), 480, 1120, 530, 48, { align: 'center' });
   txt('f3-linear-label', choose(lang, 'Records (linear scale)', '样本数（线性尺度）'), 1060, 1120, 492, 48, { align: 'center' });
   txt('f3-training-composition', choose(lang,
-    'Training: 3,816 main + 12,000 auxiliary + 107 symbols',
-    '训练集：3,816条主任务 + 12,000条辅助任务 + 107条符号样本'),
+    'Training: 3,635 main + 12,000 auxiliary + 107 symbols',
+    '训练集：3,635条主任务 + 12,000条辅助任务 + 107条符号样本'),
   70, 1200, 1480, 48, { color: p.muted, align: 'center' });
 }
 

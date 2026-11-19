@@ -6,9 +6,12 @@
     "corpus_examples": 392764,
     "symbol_examples": 107,
     "full_examples": 392871,
-    "training_sources": 3816,
-    "training_examples": 15923,
-    "test_records": 1200
+    "training_sources": 3635,
+    "training_examples": 15742,
+    "test_records": 1200,
+    "test_unique_whitespace_normalized_texts": 1100,
+    "excluded_matching_source_records": 1381,
+    "shared_clause_only_records_retained": 88
   },
   "tasks": [
     {
@@ -129,7 +132,7 @@
       "label_en": "Full annotation (main)",
       "label_zh": "整句标注（主任务）",
       "full_n": 5016,
-      "training_n": 3816
+      "training_n": 3635
     }
   ],
   "figures": [
@@ -143,8 +146,9 @@
         },
         {
           "id": "b",
-          "total": 15923,
-          "scale": "linear"
+          "total": 15742,
+          "scale": "linear",
+          "scope": "study training set"
         }
       ]
     },
@@ -1020,5 +1024,18 @@
         "grammar_f1"
       ]
     }
-  ]
+  ],
+  "training_build": {
+    "scope": "Training-data construction for the reported study.",
+    "selection_key": "whole sentence text with whitespace removed",
+    "test_records": 1200,
+    "unique_test_texts": 1100,
+    "excluded_source_records": 1381,
+    "retained_source_records": 3635,
+    "main_examples": 3635,
+    "auxiliary_examples": 12000,
+    "symbol_examples": 107,
+    "total_examples": 15742,
+    "exclude_shared_clauses": false
+  }
 }

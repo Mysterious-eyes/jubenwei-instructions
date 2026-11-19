@@ -9,7 +9,7 @@ This folder contains the current figure sources, fixed aggregate inputs, and the
 - `captions.json`: captions in both languages.
 - `manifest.json`: file sizes and SHA256 checksums.
 
-The 14 PNG files match the images embedded in the corresponding manuscripts. They can be used directly without a graphics runtime.
+The 14 PNG files provide the reference figures for this package. They can be used directly without a graphics runtime. `manifest.json` is the single checksum index for the sources, inputs and both sets of seven PNGs.
 
 ## Sources and inputs
 
@@ -22,6 +22,8 @@ The 14 PNG files match the images embedded in the corresponding manuscripts. The
 `native/helpers.mjs` defines the editable text, shapes, connectors, and chart styles. Shared colors, font families and canvas size are in `data/style.json`. Figures 2 and 4 use native drawing objects; Figures 3, 5, 6 and 7 combine those objects with native bar charts. Logarithmic bars and percentile intervals use explicitly positioned editable shapes, while their input values remain in the original units.
 
 The fixed input is limited to aggregate task counts, output-length quantiles, annotation-label frequencies, and metrics for six model conditions.
+
+Training construction keeps the fixed 1,200 test records, representing 1,100 distinct whole-sentence texts after removing whitespace. All 1,381 source records with matching sentence text are excluded from the 5,016-record source collection, leaving 3,635 records. Records sharing only a clause with the test set are retained. Regeneration and sampling combine 3,635 main-task examples, 12,000 auxiliary examples and 107 symbol examples, totaling 15,742. Figures 1, 3 and 4 reflect this rule; the full 392,871-example collection and the six saved model evaluations remain unchanged.
 
 ## Verify the files
 
@@ -52,7 +54,7 @@ The default fonts are Arial for English and Microsoft YaHei for Chinese. Figure 
 
 ## Rebuild Figures 2–7
 
-These figures use the `Presentation` API from **@oai/artifact-tool 2.8.180**. Rendering requires a separate compatible installation of this private host runtime; `requirements.txt` supplies Pillow only. The runner uses a local Presentation instance without a Spaces session.
+These figures use the `Presentation` API from **@oai/artifact-tool 2.8.184**. Rendering requires a separate compatible installation of this private host runtime; `requirements.txt` supplies Pillow only. The runner uses a local Presentation instance without a Spaces session.
 
 When that runtime is installed, provide its `artifact_tool.mjs` entry point:
 
@@ -68,7 +70,7 @@ node render_native.mjs --lang en --figures 2,3,4,5,6,7 --artifact-module "/path/
 
 The unified `rebuild.py` command removes only blank vertical margins from the native exports, retains the full width, and writes the finished PNGs under `output/en/` and `output/zh/`. Existing outputs require `--overwrite`. The `--check-reference` option compares all rebuilt PNG pixels with the reference files in `png/`; the result is recorded in the generated `render_check.json`.
 
-The sources were tested on Windows with Python 3.12.14, Pillow 13.0.0, Node.js 24.22.3, and @oai/artifact-tool 2.8.180, using Arial and Microsoft YaHei. Both Figure 1 PNGs matched the reference files byte for byte; all 14 rebuilt figures matched the reference pixels. Rendering with a different font or native-runtime version can produce layout differences.
+The sources were tested on Windows with Python 3.12.14, Pillow 13.0.0, Node.js 24.22.3, and @oai/artifact-tool 2.8.184, using Arial and Microsoft YaHei. The rebuilt figures are compared against the reference pixels with `--check-reference`. Rendering with a different font or native-runtime version can produce layout differences.
 
 ## Edit a figure
 

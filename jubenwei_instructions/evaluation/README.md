@@ -1,6 +1,6 @@
 # Evaluation of sentence annotation
 
-All six conditions used the same 1,200 sentences in the same order. Test IDs run from `T0001` through `T1200`. They link the model answers, diagnostics and reference records. The condition IDs and model settings are in [conditions.json](conditions.json).
+All six conditions used the same 1,200 test records in the same order. The trained checkpoints used 15,742 examples under whole-sentence text exclusion. Release v1.1.0 corrects the earlier training-set reconstruction. The prediction files and their scores are those archived in validation-v1.0.0. Test IDs run from `T0001` through `T1200`. They link the model answers, diagnostics and reference records. The condition IDs and model settings are in [conditions.json](conditions.json).
 
 | File | Contents |
 |---|---|

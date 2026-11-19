@@ -18,8 +18,14 @@ def main():
     data = json.loads((ROOT / 'data' / 'figure_data.json').read_text(encoding='utf-8-sig'))
     tasks = data['tasks']
     assert len(tasks) == 15
+    counts = data['counts']
+    assert counts['test_records'] == 1200
+    assert counts['test_unique_whitespace_normalized_texts'] == 1100
+    assert counts['source_records'] - counts['excluded_matching_source_records'] == counts['training_sources'] == 3635
+    assert counts['training_sources'] + 12000 + 107 == counts['training_examples'] == 15742
+    assert counts['shared_clause_only_records_retained'] == 88
     assert sum(r['full_n'] for r in tasks) == 392871
-    assert sum(r['training_n'] for r in tasks) == 15923
+    assert sum(r['training_n'] for r in tasks) == 15742
     figs = {r['number']: r for r in data['figures']}
     for row in figs[5]['panels'][0]['rows']:
         values = [row[k] for k in ['p10', 'p25', 'median', 'p75', 'p90']]
@@ -34,10 +40,14 @@ def main():
         assert r['valid'] == r['text_consistent'] + r['text_mismatch']
         assert len(r['metrics']['f1_percent']) == 4
         assert math.isclose(r['metrics']['all_input_structure_percent'], r['structure_correct'] / 1200 * 100)
-    snapshots = json.loads((ROOT / 'data' / 'published_pngs.json').read_text(encoding='utf-8-sig'))['figures']
-    assert len(snapshots) == 14
-    for r in snapshots:
-        assert hashlib.sha256((ROOT / r['file']).read_bytes()).hexdigest() == r['sha256']
+    expected_pngs = {f'png/{lang}/Figure_{number:02d}.png'
+                     for lang in ['en', 'zh'] for number in range(1, 8)}
+    indexed_paths = [item['path'] for item in manifest['files']]
+    assert len(indexed_paths) == len(set(indexed_paths)), 'Duplicate manifest entries'
+    actual_pngs = {str(path.relative_to(ROOT)).replace('\\', '/')
+                   for path in (ROOT / 'png').rglob('*.png')}
+    assert actual_pngs == expected_pngs, 'Expected seven PNGs in each language'
+    assert expected_pngs <= set(indexed_paths), 'A reference PNG is missing from the manifest'
     print(f'PASS: {len(manifest["files"])} package files, 14 reference PNGs and all aggregate checks.')
 
 

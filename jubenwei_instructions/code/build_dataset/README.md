@@ -1,6 +1,6 @@
 # Build the instruction dataset
 
-The workflow constructs the full 15-task collection and the training set used in the study. `select_training_data.py` implements training-set construction by subtracting the fixed test records, regenerating tasks from the remaining source records, and sampling auxiliary tasks.
+The workflow constructs the full 15-task collection and the training set used in the study. By default, `select_training_data.py` excludes **every source record whose whole-sentence text matches a test sentence after whitespace removal**, regenerates tasks from all remaining records, and samples auxiliary tasks. Punctuation and case are preserved. XML differences do not prevent exclusion; duplicates within the retained training sources and sentences that share only a clause are kept.
 
 Use Python 3.10 or later. All construction scripts use the standard library. Run the examples from `jubenwei_instructions/`, the resource directory inside the repository. Relative data paths are resolved against this directory.
 
@@ -84,15 +84,17 @@ python -B code/build_dataset/select_training_data.py --source reproduced/preproc
 
 Output: `reproduced/training_instance/`. The study settings use `--per-task 1000` and `--seed 0`.
 
-Records are matched by whitespace-normalized sentence text and canonicalized XML (`strip_text=True`). Each test occurrence consumes one equivalent source occurrence in source order. Subtracting 1,200 test records from 5,016 leaves 3,816 training sources. Tasks are regenerated from this remainder, including the controlled XML perturbations. The 12 corpus-derived auxiliary files are processed in sorted filename order and contribute 1,000 examples each.
+The fixed 1,200-record reference contains 1,100 distinct whole-sentence texts after whitespace removal. The current rule excludes all 1,381 matching records from the 5,016 source records, leaving 3,635 training sources in their original order. The reference remains a 1,200-record collection; it is not deduplicated. Only membership of the normalized whole-sentence text is used for exclusion. Other repeated training sentences and shared clauses are retained.
+
+Tasks are regenerated from the 3,635 retained records, including controlled XML perturbations. The 12 corpus-derived auxiliary files are processed in sorted filename order and contribute 1,000 examples each. The two static dictionary files are retained in full. These 15,742 examples follow the author-confirmed training construction procedure.
 
 | Training input | Records |
 |---|---:|
 | `integrated_data.json` | 12,000 |
 | `learn_tag_1.json` | 54 |
 | `learn_tag_2.json` | 53 |
-| `overall_1.json` | 3,816 |
-| **Total** | **15,923** |
+| `overall_1.json` | 3,635 |
+| **Total** | **15,742** |
 
 The directory also contains `dataset_info.json`, `training_source.json`, `split_report.json`, `generation_report.json`, and the intermediate `generated_tasks/` directory. These provide loading configuration, the retained sources, construction checks, and the task collection before auxiliary sampling.
 
@@ -104,6 +106,38 @@ All commands create a new output directory. Within the resource directory, gener
 python -B code/build_dataset/select_training_data.py --source reproduced/preprocessing/sentence_xml_pairs.json --reference reproduced/evaluation_reference/reference.json --output-dir /path/to/new/training_run
 ```
 
-`--source`, `--reference` (also accepted as `--test`), `--per-task`, and `--seed` allow reuse with another input collection or task quota. Add `--dry-run` to any construction command to inspect its paths and settings without creating output.
+`--source`, `--reference` (also accepted as `--test`), `--per-task`, and `--seed` allow reuse with another input collection or task quota. Add `--dry-run` to `select_training_data.py` to inspect its paths and settings without creating output.
 
-Reports record input and output hashes, counts, validation results, and the selection parameters. The test reference plus the remaining source records conserve the original 5,016 records, including their occurrence counts.
+Reports record input/output hashes, task counts, selected and excluded source indices, the named selection policy, and whole-sentence and shared-clause diagnostics. For the current policy, the conservation check is **3,635 retained + 1,381 excluded = 5,016 source records**. It is not a sum of retained records and the 1,200 test occurrences. The retained whole-sentence/test-text intersection must be empty; the shared-clause diagnostic is not used to remove records.
+
+Check an independently constructed training directory without requiring a complete study archive:
+
+```sh
+python -B code/verify_release.py --training-dir reproduced/training_instance --source reproduced/public_reference/sentence_xml_pairs.json --reference reproduced/public_reference/reference.json --expect-selection-policy exclude_all_matching_test_sentences
+```
+
+Use the source/reference paths from the construction command if you followed the XML preprocessing route instead. If the complete task files have also been extracted, add `--symbol-dir sft_tasks` to compare the two dictionary files with that independent copy. Training-only verification checks its report, source indices, exclusion rule, all four training inputs and recorded hashes. It is reported separately from complete-archive manifest verification.
+
+## Historical reconstruction and archive verification
+
+The `validation-v1.0.0` Git tag preserves the earlier code and validation archive. That code used record-multiplicity subtraction: one test record removed one source occurrence with matching whitespace-normalized text and canonicalized XML. The resulting 3,816-source/15,923-example reconstruction is a historical snapshot, not the current author-confirmed training construction. Existing provenance and reproduction-check files retain their historical checks.
+
+The former rule remains explicitly available when checking those older construction artifacts:
+
+```sh
+python -B code/build_dataset/select_training_data.py --source reproduced/public_reference/sentence_xml_pairs.json --reference reproduced/public_reference/reference.json --selection-policy subtract_test_records_by_multiplicity --output-dir reproduced/legacy_record_subtraction
+```
+
+`verify_release.py` selects the validation rule from the archive's `split_report.json`; it rejects missing or unknown policies rather than guessing from the row count. Complete-archive checks still verify every manifest checksum, normalized/source correspondence, full-task schema, training inputs and saved-prediction order:
+
+```sh
+python -B code/verify_release.py --root /path/to/complete/study_archive
+```
+
+These operations do not alter historical tags, datasets or saved model outputs. Neither policy runs model training or inference.
+
+Run the selection and report-version regression checks with:
+
+```sh
+python -B -m unittest discover -s code/build_dataset -p test_selection_rules.py
+```

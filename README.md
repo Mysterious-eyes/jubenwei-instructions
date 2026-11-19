@@ -12,7 +12,7 @@ An instruction tuning dataset for teaching Chinese grammar, built from the Chine
 
 ## Model validation
 
-Both models were fine-tuned on the same 15,923 training examples. Each row below represents one run on the same 1,200 test sentences. **Task SFT** refers to the fine-tuning performed for this dataset. The two tuned Qwen3 rows use the same checkpoint with thinking disabled or enabled at inference.
+Both models were fine-tuned on the same 15,742 training examples. The fixed test set contains 1,200 records representing 1,100 distinct whole-sentence texts. Each row below represents one run on the same 1,200 test sentences. **Task SFT** refers to the fine-tuning performed for this dataset. The two tuned Qwen3 rows use the same checkpoint with thinking disabled or enabled at inference.
 
 | Model | Task SFT | Thinking | Parsable XML (%) | Segmentation F1 (%) | POS F1 (%) | Dynamic-word F1 (%) | Syntactic F1 (%) | Exact structure, all inputs (%) |
 |---|---|---|---:|---:|---:|---:|---:|---:|
@@ -53,6 +53,8 @@ To regenerate the task counts, response-length quantiles and XML attribute frequ
 python -B code/profile_dataset.py --dataset /path/to/jubenwei-instructions-data-v1.0.0.zip --check-figure-data ../figures/data/figure_data.json
 ```
 
+The selector compares entire sentences after removing whitespace, retaining punctuation and case. The 1,100 distinct test texts match 1,381 of the 5,016 source records. All matches are excluded, including records with a different XML annotation. The remaining 3,635 source records retain their order and can share clauses with test sentences. The generators rebuild the main task and the 12 corpus-derived auxiliary tasks from those records. Sampling 1,000 examples per auxiliary task and adding 54 + 53 glossary examples gives 3,635 + 12,000 + 107 = **15,742 training examples**.
+
 The four training inputs from `select_training_data.py` are written to `reproduced/training_instance/`. Set `dataset_dir` to that directory in a copy of the appropriate [LlamaFactory configuration](jubenwei_instructions/configs/) before training. For reconstruction starting with the licensed LDC files, follow the [XML preprocessing and task generation guide](jubenwei_instructions/code/build_dataset/README.md). To run inference on a served checkpoint, use the [model clients](jubenwei_instructions/code/inference/README.md).
 
 ## Citation
@@ -61,6 +63,6 @@ The four training inputs from `select_training_data.py` are written to `reproduc
 
 **Source treebank:** Peng, W. et al. *Chinese Sentence Pattern Structure Treebank*, LDC2025T06. Linguistic Data Consortium (2025). [10.35111/hx6v-6p30](https://doi.org/10.35111/hx6v-6p30).
 
-**Software and results:** [Study code v1.0.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.0.0) · [Validation results and reproduction tools](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0) · [Software citation](CITATION.cff).
+**Software and results:** [Training-set construction v1.1.0](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/v1.1.0) · [Validation results and reproduction tools](https://github.com/Mysterious-eyes/jubenwei-instructions/releases/tag/validation-v1.0.0) · [Software citation](CITATION.cff).
 
 Correspondence: Jingbo Sun, Minzu University of China ([sunjingbo@muc.edu.cn](mailto:sunjingbo@muc.edu.cn)).

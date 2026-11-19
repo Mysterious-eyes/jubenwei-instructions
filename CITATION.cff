@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite this software using the metadata below."
 type: software
 title: "Jubenwei Instructions code for Chinese grammar teaching"
-version: 1.0.0
+version: 1.1.0
 authors:
   - family-names: "Yang"
     given-names: "Xinyu"
